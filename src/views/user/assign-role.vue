@@ -3,7 +3,7 @@
   <el-dialog v-model="visible" title="分配角色" width="25%">
     <el-form ref="userAssignRoleRef" :model="userAssignRole" label-position="top">
       <el-form-item label="用户名：">
-        <el-input v-model="userAssignRole.userCode" autocomplete="off" disabled />
+        <el-input v-model="userAssignRole.userCode" autocomplete="off" disabled/>
       </el-form-item>
       <el-form-item label="角色：">
         <!-- 功能：将用户已有角色默认选中 -->
@@ -11,7 +11,7 @@
         <!-- <el-checkbox v-for="role,idx of roleList" v-model="chk[idx]" :label="role.roleName" :key="role.roleId" /> -->
         <!-- 方法2：将lable属性需要默认选中的数据放入roleCheckList中 -->
         <el-checkbox-group v-model="userAssignRole.roleCheckList">
-          <el-checkbox v-for="role of userAssignRole.roleList" :label="role.roleName" :key="role.roleId" />
+          <el-checkbox v-for="role of userAssignRole.roleList" :key="role.roleId" :label="role.roleName"/>
         </el-checkbox-group>
       </el-form-item>
     </el-form>
@@ -25,8 +25,8 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
-import { get, put, tip } from "@/common";
+import {ref, reactive} from 'vue'
+import {get, put, tip} from "@/common";
 
 const visible = ref(false); // 该页面的可见性
 const userRoleList = ref([]); // 用户的角色列表
@@ -76,7 +76,7 @@ const userAssignRoleRef = ref();
 // 分配角色提交
 const assignRole = () => {
   userAssignRoleRef.value.validate(valid => {
-    if(valid){
+    if (valid) {
       // put('/user/assignRole', userAssignRole, { title: "提示", message: "您确定重新分配角色吗？" })
       put('/user/assignRole', userAssignRole).then(result => {
         tip.success(result.message);
@@ -86,7 +86,7 @@ const assignRole = () => {
   });
 }
 
-defineExpose({ open });
+defineExpose({open});
 </script>
 <style scoped>
 

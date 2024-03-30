@@ -7,20 +7,20 @@
   </div>
   <!-- 权限列表 -->
   <el-tree
-    ref="authTreeRef"
-    :data="data"
-    :props="props"
-    node-key="authId"
-    :default-checked-keys="checkedKeys"
-    show-checkbox
-    @node-click="handleNodeClick"
+      ref="authTreeRef"
+      :data="data"
+      :default-checked-keys="checkedKeys"
+      :props="props"
+      node-key="authId"
+      show-checkbox
+      @node-click="handleNodeClick"
   />
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { get, put, tip } from "@/common";
+import {ref} from 'vue'
+import {useRoute, useRouter} from 'vue-router'
+import {get, put, tip} from "@/common";
 
 const route = useRoute(); // 获取路由信息
 const router = useRouter(); // 获取路由器
@@ -30,14 +30,14 @@ const handleNodeClick = (data) => {
 }
 
 // 点击取消
-const goBack = function(){
+const goBack = function () {
   router.go(-1); // 返回
 }
 
 const props = {
   children: 'childAuth',
   label: 'authName',
-  disabled: data => data.authState==0
+  disabled: data => data.authState == 0
 }
 
 const data = ref([]);
@@ -74,7 +74,7 @@ const updateAuth = () => {
 
 </script>
 <style scoped>
-.el-tree{
+.el-tree {
   width: 60%;
   padding: 5px 0 50px;
   border: 1px solid #CCC;

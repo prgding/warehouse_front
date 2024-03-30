@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import {createApp} from 'vue'
 
 import 'font-awesome/css/font-awesome.min.css'
 
@@ -34,7 +34,7 @@ import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import App from './App.vue'
 
 
-createApp(App).use(constants).use(router).use(excel).use(request).use(debounce).use(tip).use(loading).use(ElementPlus,{
-    locale: zhCn,
-  }).mount('#app');
+createApp(App).use(constants).use(router).use(excel).use(request).use(debounce).use(tip).use(loading).use(ElementPlus, {
+	locale: zhCn,
+}).mount('#app');
 

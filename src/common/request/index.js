@@ -1,6 +1,5 @@
 /**
  * 封装请求组件
- * 作者：王坤 2022-03
  */
 
 import axios from "axios";
@@ -16,18 +15,17 @@ import {
 	removeLocalToken
 } from '../token'
 
-import { sureLoading } from "../sureLoading"
-
+import {sureLoading} from "../sureLoading"
 
 
 // 请求信息数组（池），请求发出时放入请求池，请求响应时从请求池清除
 class RequestInfoPool {
 
+	pool = []
+
 	constructor() {
 		console.log('创建了请求信息池，timestamp：' + new Date().getTime());
 	}
-
-	pool = []
 
 	eq = (req1, req2) => {
 		const r =
@@ -69,7 +67,7 @@ class RequestInfoPool {
 		//缓存中的请求不需要事件戳参数，因此将get请求中的时间戳参数去除
 		let params = requestConfig.params;
 		if (!method || method.toLowerCase() === 'get') {
-			params = params ? { ...params } : {};
+			params = params ? {...params} : {};
 			params['_t'] && delete params['_t'];
 		}
 
@@ -82,7 +80,6 @@ class RequestInfoPool {
 			},
 			timestamp: new Date().getTime()
 		};
-
 
 
 		const oldRequestInfo = this.pool.find(info => this.eq(info.req, requestInfo.req));
@@ -119,7 +116,7 @@ class RequestInfoPool {
 		//缓存中的请求不需要事件戳参数，因此将get请求中的时间戳参数去除
 		let params = requestConfig.params;
 		if (!method || method.toLowerCase() === 'get') {
-			params = params ? { ...params } : {};
+			params = params ? {...params} : {};
 			params['_t'] && delete params['_t'];
 		}
 
@@ -140,8 +137,8 @@ class RequestInfoPool {
 		}
 	}
 	/**
-		 * 删除所有的请求信息
-		 */
+	 * 删除所有的请求信息
+	 */
 	removeAllRequestInfo = () => {
 		this.pool.splice(0, this.pool.length);
 	}
@@ -221,7 +218,6 @@ const CODE_MAP = {
 };
 
 
-
 // 判断数据代码(code)或者状态(status)判断是否操作成功
 const isSuccessful = (data) => {
 
@@ -269,7 +265,6 @@ const getCodeMessage = (data) => {
 const getHttpMessage = (httpStatusCode) => {
 
 
-
 	if (typeof httpStatusCode === 'number' && HTTP_MAP[httpStatusCode]) {
 		return HTTP_MAP[httpStatusCode] + '(HTTP状态码:' + httpStatusCode + ')';
 	}
@@ -280,7 +275,6 @@ const getHttpMessage = (httpStatusCode) => {
 
 	return '响应错误(HTTP状态码:' + httpStatusCode + ')';
 };
-
 
 
 const getToken = () => getLocalToken();
@@ -301,14 +295,10 @@ const instance = axios.create({
 });
 
 
-
-
-
 instance.interceptors.request.use(
-
 	function (config) {
 
-		config = config || { loading: true, servMsg: false, servMsgSync: false };
+		config = config || {loading: true, servMsg: false, servMsgSync: false};
 
 		config.loading = config.loading !== false
 		config.servMsg = config.servMsg === true // 是否显示服务端发来的成功消息
@@ -389,7 +379,6 @@ instance.interceptors.response.use(function (response) {
 	}
 
 
-
 	if (error.response) {
 		// The request was made and the server responded with a status code
 		// that falls out of the range of 2xx
@@ -408,8 +397,6 @@ instance.interceptors.response.use(function (response) {
 			router.replace({
 				name: LOGIN_ROUTE_NAME
 			});
-
-
 
 
 		} else if (data && (data.message || typeof data.code === 'number')) {
@@ -436,7 +423,6 @@ instance.interceptors.response.use(function (response) {
 
 	return Promise.reject(error);
 });
-
 
 
 const ajax = function (getAxiosPromise) {
@@ -537,8 +523,8 @@ const operate = function (getAxiosPromise, config) {
 					.then(data => {
 						resolve(data);
 					}).catch(err => {
-						reject(err)
-					})
+					reject(err)
+				})
 			};
 
 			message.confirm({
@@ -546,8 +532,8 @@ const operate = function (getAxiosPromise, config) {
 				content: config.message
 			})
 				.then(onOk)
-				.catch(() => { });
-
+				.catch(() => {
+				});
 
 
 		} else {
@@ -556,9 +542,9 @@ const operate = function (getAxiosPromise, config) {
 				.then(data => {
 					resolve(data);
 				}).catch(err => {
-					console.error("error:", err);
-					reject(err);
-				});
+				console.error("error:", err);
+				reject(err);
+			});
 
 		}
 
@@ -607,8 +593,6 @@ const $getBlob = function (url, params, config) {
 	return ajax(() => instance.get(url, config))
 
 
-
-
 };
 
 const $post = function (url, data, config) {
@@ -633,7 +617,6 @@ const $delete = function (url, data, config) {
 	return operate(() => instance.delete(url, config), config);
 
 };
-
 
 
 /*
@@ -683,7 +666,7 @@ const $postFormData = function (url, data, config) {
 	}];
 
 	config.requestMethod = 'postFormData';
-	config.initialData = { ...config.data };//记录原始请求数据
+	config.initialData = {...config.data};//记录原始请求数据
 
 	return operate(() => instance.post(url, data, config), config);
 

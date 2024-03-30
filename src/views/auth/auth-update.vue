@@ -3,10 +3,10 @@
   <el-dialog v-model="visible" title="修改权限信息" width="25%">
     <el-form ref="authUpdateForm" :model="authUpdate" :rules="rules" label-position="top">
       <el-form-item label="名称：" prop="authName">
-        <el-input v-model="authUpdate.authName" autocomplete="off" />
+        <el-input v-model="authUpdate.authName" autocomplete="off"/>
       </el-form-item>
       <el-form-item label="权限描述：" prop="authDesc">
-        <el-input v-model="authUpdate.authDesc" autocomplete="off" />
+        <el-input v-model="authUpdate.authDesc" autocomplete="off"/>
       </el-form-item>
     </el-form>
     <template #footer>
@@ -19,8 +19,8 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
-import { put, tip } from "@/common";
+import {ref, reactive} from 'vue'
+import {put, tip} from "@/common";
 
 const visible = ref(false); // 该页面的可见性
 // 修改权限对象
@@ -41,7 +41,7 @@ const open = (auth) => {
 // 输入框内容的基本规则
 const rules = reactive({
   authName: [
-    { required: true, message: '请输入权限名称', trigger: 'blur' }
+    {required: true, message: '请输入权限名称', trigger: 'blur'}
   ]
 })
 
@@ -51,7 +51,7 @@ const emit = defineEmits(["ok"]);
 // 修改权限提交
 const updateAuth = () => {
   authUpdateForm.value.validate(valid => {
-    if(valid){
+    if (valid) {
       put('/auth/auth-update', authUpdate).then(result => {
         emit('ok');
         tip.success(result.message);
@@ -61,7 +61,7 @@ const updateAuth = () => {
   });
 }
 
-defineExpose({ open });
+defineExpose({open});
 </script>
 <style scoped>
 

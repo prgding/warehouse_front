@@ -1,17 +1,17 @@
 <template>
   <!-- 添加商品分类对话框 -->
-  <el-dialog v-model="visible" title="添加商品分类" width="40%" @close="close" destroy-on-close>
+  <el-dialog v-model="visible" destroy-on-close title="添加商品分类" width="40%" @close="close">
     <el-form ref="categoryAddForm" :model="categoryAdd" :rules="rules" label-position="right" label-width="100px">
       <el-form-item label="分类编码：" prop="typeCode">
-        <el-input v-model="categoryAdd.typeCode" />
+        <el-input v-model="categoryAdd.typeCode"/>
       </el-form-item>
       <el-form-item label="分类名称：" prop="typeName">
-        <el-input v-model="categoryAdd.typeName" />
+        <el-input v-model="categoryAdd.typeName"/>
       </el-form-item>
       <el-form-item label="分类描述：" prop="typeDesc">
-        <el-input type="textarea" rows="4" v-model="categoryAdd.typeDesc" />
+        <el-input v-model="categoryAdd.typeDesc" rows="4" type="textarea"/>
       </el-form-item>
-    </el-form> 
+    </el-form>
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="close">取消</el-button>
@@ -22,8 +22,8 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
-import { get, post, tip } from "@/common"
+import {ref, reactive} from 'vue'
+import {get, post, tip} from "@/common"
 
 // 该页面的可见性
 const visible = ref(false);
@@ -37,27 +37,27 @@ const categoryAdd = reactive({
 });
 
 // 检查分类编码的唯一性
-const validateCode = async(rule, typeCode, callback) => {
+const validateCode = async (rule, typeCode, callback) => {
   typeCode = typeCode.trim();
-  if(typeCode === '') return callback(new Error('请输入分类编码！'));
+  if (typeCode === '') return callback(new Error('请输入分类编码！'));
   const res = await get(`/productCategory/verify-type-code?typeCode=${typeCode}`);
-  if(!res.data) return callback(new Error('该分类编码已存在！'));
+  if (!res.data) return callback(new Error('该分类编码已存在！'));
   return true;
 }
 
 // 输入框内容的基本规则
 const rules = reactive({
   typeCode: [
-    { validator: validateCode, trigger: 'blur' }
+    {validator: validateCode, trigger: 'blur'}
   ],
   typeName: [
-    { required: true, message: '分类名称不能为空！', trigger: 'blur' }
+    {required: true, message: '分类名称不能为空！', trigger: 'blur'}
   ]
 });
 
 // 关闭
 const close = () => {
-  for(let prop in categoryAdd){
+  for (let prop in categoryAdd) {
     categoryAdd[prop] = '';
   }
   visible.value = false;
@@ -66,11 +66,11 @@ const close = () => {
 // 该对话框打开，进行数据初始化
 const open = (productCategory) => {
   visible.value = true;
-  
-  if(productCategory){
+
+  if (productCategory) {
     // 当前选中一级分类，添加该一级分类的子分类，父id为一级分类的typeId
     categoryAdd.parentId = productCategory.typeId;
-  }else{
+  } else {
     // 当前未选中分类，添加一级分类，父id为0
     categoryAdd.parentId = 0;
   }
@@ -82,7 +82,7 @@ const emit = defineEmits(["ok"]);
 // 添加商品提交
 const addCategory = () => {
   categoryAddForm.value.validate(valid => {
-    if(valid){
+    if (valid) {
       post('/productCategory/type-add', categoryAdd).then(result => {
         emit('ok');
         tip.success(result.message);
@@ -92,11 +92,11 @@ const addCategory = () => {
   });
 }
 
-defineExpose({ open });
+defineExpose({open});
 </script>
 
 <style scoped>
-.avatar-uploader, .avatar-uploader .avatar{
+.avatar-uploader, .avatar-uploader .avatar {
   width: 100px;
   height: 100px;
   display: block;

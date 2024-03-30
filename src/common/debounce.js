@@ -1,6 +1,5 @@
 /**
  * 防抖和节流
- * 作者：王坤 2022-03
  */
 
 //防抖
@@ -32,7 +31,6 @@ export const throttle = () => {
 export const throttleInstance1 = throttle();
 export const throttleInstance2 = throttle();
 export const throttleInstance3 = throttle();
-
 
 
 export default {

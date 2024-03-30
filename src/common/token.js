@@ -1,9 +1,9 @@
 /**
  * token本存储
- * 作者：王坤 2022-03
  */
 
-import { LOCAL_TOKEN } from "./constants.js"
+import {LOCAL_TOKEN} from "./constants.js"
+
 /**
  * 获取本地存储的token
  */

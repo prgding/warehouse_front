@@ -1,9 +1,8 @@
 /**
  * 提示信息
- * 作者：王坤 2022-03
  */
 
-import { createApp } from 'vue';
+import {createApp} from 'vue';
 import TipApp from './TipApp.vue'
 
 const tipApp = createApp(TipApp);

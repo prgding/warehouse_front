@@ -3,7 +3,7 @@ import vue from '@vitejs/plugin-vue'
 
 const path = require('path');
 
-export default ({ command, mode }) => {
+export default ({mode}) => {
 
   const env = loadEnv(mode, process.cwd()); // 获取（在.env文件中配置的）环境变量，
 
@@ -15,7 +15,7 @@ export default ({ command, mode }) => {
 
     resolve: {
       // 使用"@"表示项目的src目录
-      alias: { 
+      alias: {
         '@': path.resolve(__dirname, './src'),
         /* 'excel': path.resolve(__dirname, '@/common/excel') */
       }

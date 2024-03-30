@@ -3,10 +3,10 @@
   <el-dialog v-model="visible" title="修改用户信息" width="25%">
     <el-form ref="userUpdateForm" :model="userUpdate" label-position="top">
       <el-form-item label="用户名：">
-        <el-input v-model="userUpdate.userCode" autocomplete="off" disabled />
+        <el-input v-model="userUpdate.userCode" autocomplete="off" disabled/>
       </el-form-item>
       <el-form-item label="昵称：">
-        <el-input v-model="userUpdate.userName" autocomplete="off" />
+        <el-input v-model="userUpdate.userName" autocomplete="off"/>
       </el-form-item>
     </el-form>
     <template #footer>
@@ -19,8 +19,8 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
-import { put, tip } from "@/common";
+import {ref, reactive} from 'vue'
+import {put, tip} from "@/common";
 
 const visible = ref(false); // 该页面的可见性
 // 修改用户对象
@@ -44,7 +44,7 @@ const emit = defineEmits(["ok"]);
 // 修改用户提交
 const updateUser = () => {
   userUpdateForm.value.validate(valid => {
-    if(valid){
+    if (valid) {
       put('/user/updateUser', userUpdate).then(result => {
         emit('ok');
         tip.success(result.message);
@@ -54,7 +54,7 @@ const updateUser = () => {
   });
 }
 
-defineExpose({ open });
+defineExpose({open});
 </script>
 <style scoped>
 

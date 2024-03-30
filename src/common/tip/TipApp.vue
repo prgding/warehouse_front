@@ -1,10 +1,15 @@
-
 <template>
   <template v-if="visible">
     <transition name="bounce">
       <div
-        v-if="visible2"
-        style="
+          v-if="visible2"
+          :style="{
+          color: color,
+          backgroundColor: lightbg,
+          border: '1px solid ' + bg,
+          boxShadow: '0px 0px 1px 0px ' + bg,
+        }"
+          style="
           z-index: 10000;
           position: fixed;
           top: 0.3rem;
@@ -14,14 +19,8 @@
           padding: 0.1rem 0.2rem;
           border-radius: 0.05rem;
         "
-        :style="{
-          color: color,
-          backgroundColor: lightbg,
-          border: '1px solid ' + bg,
-          boxShadow: '0px 0px 1px 0px ' + bg,
-        }"
       >
-        <i class="fa fa-lg" :class="[icon]" style="margin-right: 0.05rem"></i>
+        <i :class="[icon]" class="fa fa-lg" style="margin-right: 0.05rem"></i>
         {{ title }}
       </div>
     </transition>
@@ -121,7 +120,7 @@ export default {
   methods: {
     show(options) {
       return new Promise((resolve) => {
-        const { status, title, duration } = options || {};
+        const {status, title, duration} = options || {};
         this.status = status || "info";
         this.title = title || "无信息";
         showTip(this);
@@ -141,7 +140,7 @@ export default {
           title: options,
         });
       } else {
-        const { title, duration } = options || {};
+        const {title, duration} = options || {};
         return this.show({
           status: "success",
           title: title || "操作成功！",
@@ -156,7 +155,7 @@ export default {
           title: options,
         });
       } else {
-        const { title, duration } = options || {};
+        const {title, duration} = options || {};
         return this.show({
           status: "error",
           title: title || "操作失败！",
@@ -171,7 +170,7 @@ export default {
           title: options,
         });
       } else {
-        const { title, duration } = options || {};
+        const {title, duration} = options || {};
         return this.show({
           status: "info",
           title: title || "提示信息！",
@@ -186,7 +185,7 @@ export default {
           title: options,
         });
       } else {
-        const { title, duration } = options || {};
+        const {title, duration} = options || {};
         return this.show({
           status: "warning",
           title: title || "警示信息！",
@@ -201,7 +200,7 @@ export default {
           title: options,
         });
       } else {
-        const { title, duration } = options || {};
+        const {title, duration} = options || {};
         return this.show({
           status: "404",
           title: title || "资源不存在！",
@@ -216,7 +215,7 @@ export default {
           title: options,
         });
       } else {
-        const { title, duration } = options || {};
+        const {title, duration} = options || {};
         return this.show({
           status: "403",
           title: title || "无访问授权！",
@@ -231,7 +230,7 @@ export default {
           title: options,
         });
       } else {
-        const { title, duration } = options || {};
+        const {title, duration} = options || {};
         return this.show({
           status: "500",
           title: title || "服务器错误！",
@@ -253,9 +252,11 @@ export default {
 .bounce-enter-active {
   animation: bounce-in 0.5s;
 }
+
 .bounce-leave-active {
   animation: bounce-in 0.5s reverse;
 }
+
 @keyframes bounce-in {
   0% {
     transform: scale(0);

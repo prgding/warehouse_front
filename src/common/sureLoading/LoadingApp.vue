@@ -1,8 +1,8 @@
 <template>
   <transition name="bounce">
     <div
-      v-if="sureLoading.loading"
-      style="
+        v-if="sureLoading.loading"
+        style="
         z-index: 9000;
         position: fixed;
         left: 0px;
@@ -12,7 +12,7 @@
       "
     >
       <div
-        style="
+          style="
           position: absolute;
           left: 0px;
           right: 0px;
@@ -29,18 +29,17 @@
           <div class="bounce3"></div>
         </div>
         <span v-if="sureLoading.tip" style="margin-top: 10px; color: #53a8ff">{{
-          sureLoading.tip
-        }}</span>
+            sureLoading.tip
+          }}</span>
       </div>
     </div>
   </transition>
 </template>
 
 
-
-
 <script>
-import { sureLoading } from "./index";
+import {sureLoading} from "./index";
+
 export default {
   setup(props) {
     return {
@@ -54,9 +53,11 @@ export default {
 .bounce-enter-active {
   animation: bounce-in 0.5s;
 }
+
 .bounce-leave-active {
   animation: bounce-in 0.5s reverse;
 }
+
 @keyframes bounce-in {
   0% {
     opacity: 0;

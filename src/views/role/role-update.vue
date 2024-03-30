@@ -3,10 +3,10 @@
   <el-dialog v-model="visible" title="修改角色信息" width="25%">
     <el-form ref="roleUpdateForm" :model="roleUpdate" label-position="top">
       <el-form-item label="名称：">
-        <el-input v-model="roleUpdate.roleName" autocomplete="off" disabled />
+        <el-input v-model="roleUpdate.roleName" autocomplete="off" disabled/>
       </el-form-item>
       <el-form-item label="描述：">
-        <el-input v-model="roleUpdate.roleDesc" autocomplete="off" />
+        <el-input v-model="roleUpdate.roleDesc" autocomplete="off"/>
       </el-form-item>
     </el-form>
     <template #footer>
@@ -19,8 +19,8 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
-import { put, tip } from "@/common";
+import {ref, reactive} from 'vue'
+import {put, tip} from "@/common";
 
 const visible = ref(false); // 该页面的可见性
 // 修改角色对象
@@ -44,7 +44,7 @@ const emit = defineEmits(["ok"]);
 // 修改用户提交
 const updateRole = () => {
   roleUpdateForm.value.validate(valid => {
-    if(valid){
+    if (valid) {
       put('/role/role-update', roleUpdate).then(result => {
         emit('ok');
         tip.success(result.message);
@@ -54,7 +54,7 @@ const updateRole = () => {
   });
 }
 
-defineExpose({ open });
+defineExpose({open});
 </script>
 <style scoped>
 

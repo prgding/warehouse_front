@@ -1,15 +1,15 @@
 <template>
   <div>
     <el-image
-      style="width: 81%;"
-      src="./index.jpg"
+        src="./index.jpg"
+        style="width: 81%;"
     ></el-image>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import {ref} from 'vue'
+import {useRouter} from 'vue-router'
 
 </script>
 <style scoped>

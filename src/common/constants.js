@@ -1,6 +1,5 @@
 /**
  * 常量定义
- * 作者：王坤 2022-03
  */
 export const VERSION = import.meta.env.VITE_VERSION;
 export const BASE_URL = import.meta.env.BASE_URL;
@@ -12,9 +11,9 @@ export const WAREHOUSE_CONTEXT_PATH = import.meta.env.VITE_WAREHOUSE_CONTEXT_PAT
 
 
 export default {
-    install(app) {
-        app.config.globalProperties.$version = VERSION;
-        app.config.globalProperties.$baseUrl = BASE_URL;
-        app.config.globalProperties.$apiBaseUrl = API_BASE_URL;
-    }
+	install(app) {
+		app.config.globalProperties.$version = VERSION;
+		app.config.globalProperties.$baseUrl = BASE_URL;
+		app.config.globalProperties.$apiBaseUrl = API_BASE_URL;
+	}
 }

@@ -1,17 +1,17 @@
 <template>
   <!-- 修改商品分类对话框 -->
-  <el-dialog v-model="visible" title="修改商品分类" width="40%" @close="close" destroy-on-close>
+  <el-dialog v-model="visible" destroy-on-close title="修改商品分类" width="40%" @close="close">
     <el-form ref="categoryUpdateForm" :model="categoryUpdate" :rules="rules" label-position="right" label-width="100px">
       <el-form-item label="分类编码：" prop="typeCode">
-        <el-input v-model="categoryUpdate.typeCode" disabled />
+        <el-input v-model="categoryUpdate.typeCode" disabled/>
       </el-form-item>
       <el-form-item label="分类名称：" prop="typeName">
-        <el-input v-model="categoryUpdate.typeName" />
+        <el-input v-model="categoryUpdate.typeName"/>
       </el-form-item>
       <el-form-item label="分类描述：" prop="typeDesc">
-        <el-input type="textarea" rows="4" v-model="categoryUpdate.typeDesc" />
+        <el-input v-model="categoryUpdate.typeDesc" rows="4" type="textarea"/>
       </el-form-item>
-    </el-form> 
+    </el-form>
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="close">取消</el-button>
@@ -22,8 +22,8 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
-import { put, tip } from "@/common"
+import {ref, reactive} from 'vue'
+import {put, tip} from "@/common"
 
 // 该页面的可见性
 const visible = ref(false);
@@ -39,7 +39,7 @@ const categoryUpdate = reactive({
 // 输入框内容的基本规则
 const rules = reactive({
   typeName: [
-    { required: true, message: '分类名称不能为空！', trigger: 'blur' }
+    {required: true, message: '分类名称不能为空！', trigger: 'blur'}
   ]
 });
 
@@ -52,7 +52,7 @@ const close = () => {
 // 该对话框打开，进行数据初始化
 const open = (productCategory) => {
   visible.value = true;
-  for(let prop in productCategory){
+  for (let prop in productCategory) {
     categoryUpdate[prop] = productCategory[prop];
   }
 };
@@ -63,7 +63,7 @@ const emit = defineEmits(["ok"]);
 // 添加商品提交
 const updateCategory = () => {
   categoryUpdateForm.value.validate(valid => {
-    if(valid){
+    if (valid) {
       put('/productCategory/type-update', categoryUpdate).then(result => {
         emit('ok');
         tip.success(result.message);
@@ -73,11 +73,11 @@ const updateCategory = () => {
   });
 }
 
-defineExpose({ open });
+defineExpose({open});
 </script>
 
 <style scoped>
-.avatar-uploader, .avatar-uploader .avatar{
+.avatar-uploader, .avatar-uploader .avatar {
   width: 100px;
   height: 100px;
   display: block;
