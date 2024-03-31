@@ -2,13 +2,13 @@
   <el-container class="home-container">
     <el-aside style="width: 217px;">
       <el-menu
-          active-text-color="#ffd04b"
-          background-color="#545c64"
+          active-text-color="blue"
+          background-color="white"
           class="el-menu-vertical-demo"
           default-active="2"
           router="true"
           style="width: 200px;"
-          text-color="#fff"
+          text-color="black"
       >
         <el-sub-menu v-for="firstMenu,idx of menuList" :key="firstMenu.authId" :index="idx">
           <template #title>
@@ -118,7 +118,7 @@
       <el-header>
         <div class="header_left">
           <img height="40" src="/warehouse.png" width="40"/>
-          <span style="font-weight: bold;">&nbsp;恒合仓库管理系统</span>
+          <span style="font-weight: bold;">&nbsp;仓易通 WMS</span>
         </div>
         <div class="header_right">
           <span>当前用户：{{ `${currUser.userCode}【${currUser.userName}】` }}</span>
@@ -139,7 +139,6 @@
         </div>
         <router-view></router-view>
       </el-main>
-      <el-footer>版权所有&nbsp;&copy;2000-2022&nbsp; 恒合智能仓储科技有限公司</el-footer>
     </el-container>
   </el-container>
 </template>
