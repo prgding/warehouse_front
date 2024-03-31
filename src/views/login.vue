@@ -10,7 +10,7 @@
           font-weight: bold;
           letter-spacing: 3px;
         "
-      >恒合仓库管理系统
+      >仓易通 WMS
       </div>
       <el-form
           ref="loginForm"
@@ -32,7 +32,7 @@
             <template #suffix>
               <el-image
                   :src="codeSrc"
-                  style="overflow: visible; position: relative; left: 16px;"
+                  class="captcha"
                   @click="codeSrc=codeSrc+'?'+new Date()"
               ></el-image>
             </template>
@@ -55,7 +55,7 @@
 <script setup>
 import {reactive, ref} from "vue";
 import {useRouter} from "vue-router";
-import {post, tip, setLocalToken, WAREHOUSE_CONTEXT_PATH} from "@/common";
+import {post, setLocalToken, tip, WAREHOUSE_CONTEXT_PATH} from "@/common";
 
 const loginForm = ref();
 
@@ -140,5 +140,12 @@ const login = () => {
   width: 800px;
   height: 500px;
   opacity: 0.92;
+}
+
+.captcha {
+  overflow: visible;
+  position: relative;
+  text-align: right;
+  left: 12px;
 }
 </style>
