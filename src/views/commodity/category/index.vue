@@ -110,7 +110,6 @@ const deleteCategory = () => {
 .el-tree {
   width: 60%;
   padding: 5px 0 50px;
-  border: 1px solid #CCC;
-  background-color: #F0F6E4;
+  background-color: white;
 }
 </style>
