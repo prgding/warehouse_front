@@ -29,21 +29,21 @@
               <el-icon>
                 <ShoppingCart/>
               </el-icon>
-              <span>采购列表</span>
+              <span>采购单列表</span>
             </el-menu-item>
 
             <el-menu-item index="4" @click="router.push('/instore/index')">
               <el-icon>
                 <SoldOut/>
               </el-icon>
-              <span>入库列表</span>
+              <span>入库单列表</span>
             </el-menu-item>
 
             <el-menu-item index="5" @click="router.push('/outstore/index')">
               <el-icon>
                 <Sell/>
               </el-icon>
-              <span>出库列表</span>
+              <span>出库单列表</span>
             </el-menu-item>
 
             <el-menu-item index="6" @click="router.push('/store/index')">

@@ -33,7 +33,7 @@
 
 <script setup>
 import {nextTick, onMounted, reactive, ref, watch} from "vue";
-import {tip, get, post, del, removeLocalToken, ddo} from "@/common";
+import {get} from "@/common";
 import * as echarts from 'echarts';
 
 const chart1 = ref();
@@ -84,19 +84,14 @@ const option1 = reactive({
     text: '在库库存信息'
   },
   legend: {
-    orient: "horizontal",
-    /* orient: 'vertical', */
+    orient: 'vertical',
     right: 5,
-    /* top: 'center' */
   },
   tooltip: {},
   dataset: {
     dimensions: ['product', '西安仓库', '北京仓库', '上海仓库'],
     source: [
       {product: '', '西安仓库': 0, '北京仓库': 0, '上海仓库': 0},
-      /* { product: 'Milk Tea', 2015: 83.1, 2016: 73.4, 2017: 55.1 },
-      { product: 'Cheese Cocoa', 2015: 86.4, 2016: 65.2, 2017: 82.5 },
-      { product: 'Walnut Brownie', 2015: 72.4, 2016: 53.9, 2017: 39.1 } */
     ]
   },
   xAxis: {type: 'category'},
@@ -105,12 +100,13 @@ const option1 = reactive({
 });
 
 // 监视器
-watch(option1, (newOption, oldOption) => refreshChart(chartObj1, newOption));
+watch(option1, (newOption) => refreshChart(chartObj1, newOption));
 // 获取仓库的商品库存
 const getStoreInvent = () => {
   get('/statistics/store-invent').then(res => {
     const source = [{product: ''}];
     res.data.forEach(e => {
+      e.totalInvent = e.totalInvent ? e.totalInvent : 0;
       source[0][e.storeName] = e.totalInvent;
     });
     option1.dataset.source = source;
@@ -290,9 +286,7 @@ const option5 = reactive({
 });
 
 // 6. 
-const option6 = reactive({});
-
-
+reactive({});
 </script>
 
 <style scoped>
@@ -300,7 +294,7 @@ const option6 = reactive({});
   text-align: center;
   font-size: 30px;
   font-weight: bold;
-  padding-bottom: 6px;
+  padding-bottom: 20px;
   letter-spacing: 8px;
   color: #100C2A;
 }
@@ -314,14 +308,13 @@ const option6 = reactive({});
 .report-charts .charts {
   width: 32%;
   height: 240px;
-  flex: atuo;
+  flex: auto;
   box-sizing: border-box;
 }
 
 .container {
   font-size: 17px;
-  font-family: 黑体;
-
+  font-family: 黑体, sans-serif;
   display: flex;
   flex-direction: column;
 }

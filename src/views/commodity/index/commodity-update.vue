@@ -26,64 +26,50 @@
       </el-row>
       <el-row>
         <el-form-item label="种类：" prop="typeId">
-          <el-popover placement="bottom-start" trigger="click" width="12%">
+          <el-popover placement="bottom-start" trigger="click">
             <template #reference>
               <el-input v-model="commodityUpdate.typeName" placeholder="选择类型" readonly/>
             </template>
-            <el-tree :data="categorys" :node-key="typeId" :props="defaultProps" @node-click="handleNodeClick"/>
+            <el-tree :data="categorys" :props="defaultProps" @node-click="handleNodeClick"/>
           </el-popover>
         </el-form-item>
-        <el-form-item label="库存：" prop="productInvent">
-          <el-input-number v-model="commodityUpdate.productInvent" min="0"/>
+
+        <el-form-item  label="库存：" prop="productInvent">
+          <el-input-number v-model="commodityUpdate.productInvent" min='0'/>
         </el-form-item>
       </el-row>
       <el-row>
         <el-form-item label="品牌：" prop="brandId">
-          <el-select v-model="commodityUpdate.brandId" clearable placeholder="请选择品牌">
+          <el-select style="width: 168px" v-model="commodityUpdate.brandId" clearable placeholder="请选择品牌">
             <el-option v-for="brand of brands" :key="brand.brandId" :label="brand.brandName" :value="brand.brandId"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="仓库：" prop="storeId">
-          <el-select v-model="commodityUpdate.storeId" clearable placeholder="请选择仓库">
+          <el-select style="width: 168px" v-model="commodityUpdate.storeId" clearable placeholder="请选择仓库">
             <el-option v-for="store of stores" :key="store.storeId" :label="store.storeName" :value="store.storeId"></el-option>
           </el-select>
         </el-form-item>
       </el-row>
-      <el-row>
-        <el-form-item label="供应商：" prop="supplyId">
-          <el-select v-model="commodityUpdate.supplyId" clearable placeholder="请选择供应商">
-            <el-option v-for="supply of supplys" :key="supply.supplyId" :label="supply.supplyName" :value="supply.supplyId"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="产地：" prop="placeId">
-          <el-select v-model="commodityUpdate.placeId" clearable placeholder="请选择产地">
-            <el-option v-for="place of places" :key="place.placeId" :label="place.placeName" :value="place.placeId"></el-option>
-          </el-select>
-        </el-form-item>
-      </el-row>
+
       <el-row>
         <el-form-item label="单位：" prop="unitId">
-          <el-select v-model="commodityUpdate.unitId" clearable placeholder="请选择单位">
+          <el-select style="width: 168px" v-model="commodityUpdate.unitId" clearable placeholder="请选择单位">
             <el-option v-for="unit of units" :key="unit.unitId" :label="unit.unitName" :value="unit.unitId"></el-option>
           </el-select>
         </el-form-item>
       </el-row>
+
       <el-row>
         <el-form-item label="进价：" prop="inPrice">
           <el-input v-model="commodityUpdate.inPrice" style="width: 90%;"/>
-          元
+          &nbsp;元
         </el-form-item>
         <el-form-item label="售价：" prop="salePrice">
           <el-input v-model="commodityUpdate.salePrice" style="width: 90%;"/>
-          元
+          &nbsp;元
         </el-form-item>
       </el-row>
-      <el-row>
-        <el-form-item label="会员价：" prop="memPrice">
-          <el-input v-model="commodityUpdate.memPrice" style="width: 90%;"/>
-          元
-        </el-form-item>
-      </el-row>
+
       <el-form-item label="详细介绍：" prop="introduce" style="width: 88%;">
         <el-input v-model="commodityUpdate.introduce" rows="2" type="textarea"/>
       </el-form-item>
@@ -214,13 +200,14 @@ const units = ref();
 
 // 树形结构数据对应实体类属性
 const defaultProps = {
-  children: 'childGoodsCategory',
+  children: 'childProductCategory',
   label: 'typeName',
 }
 
 // 点击二级分类，显示到输入框
 const handleNodeClick = (type) => {
-  if (type && type.parentId != 0) {
+  console.log(type);
+  if (type && type.parentId !== 0) {
     // 选择二级分类
     commodityUpdate.typeId = type.typeId;
     commodityUpdate.typeName = type.typeName;

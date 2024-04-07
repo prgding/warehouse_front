@@ -39,31 +39,19 @@
       </el-row>
       <el-row>
         <el-form-item label="品牌：" prop="brandId">
-          <el-select v-model="commodityAdd.brandId" clearable placeholder="请选择品牌">
+          <el-select style="width: 168px" v-model="commodityAdd.brandId" clearable placeholder="请选择品牌">
             <el-option v-for="brand of brands" :key="brand.brandId" :label="brand.brandName" :value="brand.brandId"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="仓库：" prop="storeId">
-          <el-select v-model="commodityAdd.storeId" clearable placeholder="请选择仓库">
+          <el-select style="width: 168px" v-model="commodityAdd.storeId" clearable placeholder="请选择仓库">
             <el-option v-for="store of stores" :key="store.storeId" :label="store.storeName" :value="store.storeId"></el-option>
           </el-select>
         </el-form-item>
       </el-row>
       <el-row>
-        <el-form-item label="供应商：" prop="supplyId">
-          <el-select v-model="commodityAdd.supplyId" clearable placeholder="请选择供应商">
-            <el-option v-for="supply of supplys" :key="supply.supplyId" :label="supply.supplyName" :value="supply.supplyId"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="产地：" prop="placeId">
-          <el-select v-model="commodityAdd.placeId" clearable placeholder="请选择产地">
-            <el-option v-for="place of places" :key="place.placeId" :label="place.placeName" :value="place.placeId"></el-option>
-          </el-select>
-        </el-form-item>
-      </el-row>
-      <el-row>
         <el-form-item label="单位：" prop="unitId">
-          <el-select v-model="commodityAdd.unitId" clearable placeholder="请选择单位">
+          <el-select style="width: 168px" v-model="commodityAdd.unitId" clearable placeholder="请选择单位">
             <el-option v-for="unit of units" :key="unit.unitId" :label="unit.unitName" :value="unit.unitId"></el-option>
           </el-select>
         </el-form-item>
@@ -71,17 +59,11 @@
       <el-row>
         <el-form-item label="进价：" prop="inPrice">
           <el-input v-model="commodityAdd.inPrice" style="width: 90%;"/>
-          元
+          &nbsp;元
         </el-form-item>
         <el-form-item label="售价：" prop="salePrice">
           <el-input v-model="commodityAdd.salePrice" style="width: 90%;"/>
-          元
-        </el-form-item>
-      </el-row>
-      <el-row>
-        <el-form-item label="会员价：" prop="memPrice">
-          <el-input v-model="commodityAdd.memPrice" style="width: 90%;"/>
-          元
+          &nbsp;元
         </el-form-item>
       </el-row>
       <el-form-item label="详细介绍：" prop="introduce" style="width: 88%;">
