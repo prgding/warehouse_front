@@ -8,8 +8,8 @@
       </el-form-item>
       <el-form-item label="用户状态:" style="margin-left: 30px;">
         <el-select v-model="params.userState" clearable placeholder="用户状态" style="width: 120px;">
-          <el-option label="禁用" value="0"></el-option>
           <el-option label="启用" value="1"></el-option>
+          <el-option label="禁用" value="0"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item style="margin-left: 30px;">
@@ -63,9 +63,16 @@
     <el-table-column label="昵称" prop="userName" sortable/>
     <el-table-column label="用户状态" sortable>
       <template #default="props">
-        <span :class="{red:props.row.userState=='0'}">{{ props.row.userState == "0" ? "禁用" : "启用" }}</span>
+        <span :class="{red:props.row.userState==='0'}">{{ props.row.userState === "0" ? "禁用" : "启用" }}</span>
       </template>
     </el-table-column>
+
+    <el-table-column label="用户身份" sortable>
+      <template #default="props">
+        <span>{{ props.row.isAdmin === "1" ? "管理员" : "普通用户" }}</span>
+      </template>
+    </el-table-column>
+
     <el-table-column label="创建人" prop="getCode" sortable/>
     <el-table-column label="创建时间" prop="createTime" sortable/>
     <el-table-column label="操作">

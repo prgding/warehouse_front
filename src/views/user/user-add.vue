@@ -2,11 +2,16 @@
   <!-- 添加用户对话框 -->
   <el-dialog v-model="visible" destroy-on-close title="添加用户" width="25%" @close="close">
     <el-form ref="userAddForm" :model="userAdd" :rules="rules" label-position="top">
-      <el-form-item label="用户名：" prop="userCode">
+      <el-form-item label="用户编码：" prop="userCode">
         <el-input v-model="userAdd.userCode" autocomplete="off"/>
       </el-form-item>
       <el-form-item label="昵称：" prop="userName">
         <el-input v-model="userAdd.userName" autocomplete="off"/>
+      </el-form-item>
+      <el-form-item label="是否为管理员：" prop="userName">
+        <el-switch v-model="userAdd.isAdmin"
+                   active-value="1"
+                   inactive-value="0"></el-switch>
       </el-form-item>
       <el-form-item label="密码：" prop="userPwd">
         <el-input v-model="userAdd.userPwd" autocomplete="off" show-password type="password"/>
@@ -25,7 +30,7 @@
 </template>
 
 <script setup>
-import {ref, reactive} from 'vue'
+import {reactive, ref} from 'vue'
 import {post, tip} from "@/common";
 
 const visible = ref(false); // 该页面的可见性
@@ -34,6 +39,8 @@ const userAdd = reactive({
   userCode: '',
   userName: '',
   userPwd: '',
+  userState: "1",
+  isAdmin: 0,
   confirmPassword: ''
 });
 

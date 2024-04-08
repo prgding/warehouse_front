@@ -35,27 +35,7 @@ const routes = [
 				component: () => import('@/views/user/auth-update.vue'),
 				meta: {nav: ['用户管理', '用户列表', '更改权限']}
 			},
-			// 角色列表
-			{
-				path: '/role/index',
-				name: 'roleList',
-				component: () => import('@/views/role/index.vue'),
-				meta: {nav: ['角色管理', '角色列表']}
-			},
-			// 角色列表-修改权限
-			{
-				path: '/role/auth-update',
-				name: 'roleAuthUpdate',
-				component: () => import('@/views/role/auth-update.vue'),
-				meta: {nav: ['角色管理', '角色列表', '更改权限']}
-			},
-			// 权限树
-			{
-				path: '/auth/index',
-				name: 'authList',
-				component: () => import('@/views/auth/index.vue'),
-				meta: {nav: ['权限管理', '权限列表']}
-			},
+
 			// 商品列表
 			{
 				path: '/commodity/index',
@@ -69,6 +49,13 @@ const routes = [
 				name: 'commodityCategory',
 				component: () => import('@/views/commodity/category/index.vue'),
 				meta: {nav: ['商品管理', '商品分类']}
+			},
+			// 商品品牌
+			{
+				path: '/commodity/brand',
+				name: 'commodityBrand',
+				component: () => import('@/views/commodity/brand/index.vue'),
+				meta: {nav: ['商品管理', '商品品牌']}
 			},
 			// 采购列表
 			{

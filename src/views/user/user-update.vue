@@ -2,11 +2,14 @@
   <!-- 修改用户对话框 -->
   <el-dialog v-model="visible" title="修改用户信息" width="25%">
     <el-form ref="userUpdateForm" :model="userUpdate" label-position="top">
-      <el-form-item label="用户名：">
+      <el-form-item label="用户编码：">
         <el-input v-model="userUpdate.userCode" autocomplete="off" disabled/>
       </el-form-item>
       <el-form-item label="昵称：">
         <el-input v-model="userUpdate.userName" autocomplete="off"/>
+      </el-form-item>
+      <el-form-item label="是否为管理员">
+        <el-switch v-model="userUpdate.isAdmin" active-value="1" inactive-value="0"></el-switch>
       </el-form-item>
     </el-form>
     <template #footer>
@@ -19,7 +22,7 @@
 </template>
 
 <script setup>
-import {ref, reactive} from 'vue'
+import {reactive, ref} from 'vue'
 import {put, tip} from "@/common";
 
 const visible = ref(false); // 该页面的可见性
@@ -27,7 +30,8 @@ const visible = ref(false); // 该页面的可见性
 const userUpdate = reactive({
   userId: '',
   userCode: '',
-  userName: ''
+  userName: '',
+  isAdmin: 0
 });
 
 // 该对话框打开并初始化
@@ -35,6 +39,8 @@ const open = (user) => {
   userUpdate.userId = user.userId;
   userUpdate.userCode = user.userCode;
   userUpdate.userName = user.userName;
+  userUpdate.isAdmin = user.isAdmin;
+
   visible.value = true;
 };
 

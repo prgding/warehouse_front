@@ -7,13 +7,12 @@
               class="el-menu-vertical-demo"
               default-active="2"
           >
-            <el-menu-item index="1" @click="router.push('/user/index')">
+            <el-menu-item v-if="currUser.isAdmin==='1'" index="1" @click="router.push('/user/index')">
               <el-icon>
                 <User/>
               </el-icon>
               <span>用户管理</span>
             </el-menu-item>
-
             <el-sub-menu index="2">
               <template #title>
                 <el-icon>
@@ -22,7 +21,8 @@
                 <span>商品管理</span>
               </template>
               <el-menu-item index="2-1" @click="router.push('/commodity/index')">商品列表</el-menu-item>
-              <el-menu-item index="2-2" @click="router.push('/commodity/category')">商品分类</el-menu-item>
+              <el-menu-item index="2-2" @click="router.push('/commodity/category')">商品分类管理</el-menu-item>
+              <el-menu-item index="2-3" @click="router.push('/commodity/brand')">商品品牌管理</el-menu-item>
             </el-sub-menu>
 
             <el-menu-item index="3" @click="router.push('/purchase/index')">
@@ -82,7 +82,7 @@
             <fold/>
           </el-icon>
           <el-breadcrumb style="display: inline-block;margin-left: 10px;">
-            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
             <template v-if="$route.meta && $route.meta.nav">
               <el-breadcrumb-item v-for="path in $route.meta.nav " :key="path">{{ path }}</el-breadcrumb-item>
             </template>
@@ -115,6 +115,7 @@ const getCurrentUser = () => {
     currUser.value = result.data;
   });
 }
+
 getCurrentUser();
 
 // 退出
@@ -127,15 +128,6 @@ const logout = () => {
     tip.success("您已退出系统！");
   });
 }
-
-// 获取所有权限
-const menuList = ref([]);
-const getMenuList = () => {
-  get("/user/auth-list").then(result => {
-    menuList.value = result.data;
-  });
-}
-getMenuList();
 
 </script>
 

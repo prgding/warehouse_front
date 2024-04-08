@@ -186,7 +186,7 @@ getStoreList();
 const brandList = ref();
 // 获取所有品牌
 const getBrandList = () => {
-  get("/product/brand-list").then(result => {
+  get("/brand/brand-list").then(result => {
     brandList.value = result.data;
   });
 }
@@ -202,25 +202,7 @@ const getCategoryTree = () => {
 }
 getCategoryTree();
 
-// 所有供应商
-const supplyList = ref();
-// 获取所有供应商
-const getSupplyList = () => {
-  get("/product/supply-list").then(result => {
-    supplyList.value = result.data;
-  });
-}
-getSupplyList();
 
-// 所有产地
-const placeList = ref();
-// 获取所有产地
-const getPlaceList = () => {
-  get("/product/place-list").then(result => {
-    placeList.value = result.data;
-  });
-}
-getPlaceList();
 
 // 所有单位
 const unitList = ref();

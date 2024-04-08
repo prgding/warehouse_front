@@ -38,7 +38,7 @@
     <el-table-column type="index" width="50"/>
     <el-table-column label="仓库ID" prop="storeId" sortable/>
     <el-table-column label="仓库名称" prop="storeName" sortable/>
-    <el-table-column label="仓库编号" prop="storeNum" sortable/>
+    <el-table-column label="仓库编码" prop="storeNum" sortable/>
     <el-table-column label="仓库地址" prop="storeAddress" sortable/>
     <el-table-column label="联系人" prop="concat" sortable/>
     <el-table-column label="电话" prop="phone" sortable/>
