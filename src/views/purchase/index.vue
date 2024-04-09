@@ -20,9 +20,9 @@
         <el-input v-model="params.buyUser" clearable placeholder="采购人" style="width: 120px;"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-select v-model="params.isIn" placeholder="入库状态" clearable style="width: 130px;">
-          <el-option :value="0" label="未入库"></el-option>
-          <el-option :value="1" label="已入库"></el-option>
+        <el-select v-model="params.isIn" placeholder="入库单状态" clearable style="width: 130px;">
+          <el-option :value="0" label="未生成"></el-option>
+          <el-option :value="1" label="已生成"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -46,9 +46,9 @@
     <el-table-column label="采购人" prop="buyUser" sortable/>
     <el-table-column label="采购时间" prop="buyTime" sortable/>
     <el-table-column label="采购人电话" prop="phone" sortable/>
-    <el-table-column label="入库状态" sortable>
+    <el-table-column label="入库单状态" sortable>
       <template #default="props">
-        <span :class="{red:props.row.isIn==0, green: props.row.isIn==1}">{{ props.row.isIn == 0 ? "未入库" : "已入库" }}</span>
+        <span :class="{red:props.row.isIn==0, green: props.row.isIn==1}">{{ props.row.isIn == 0 ? "未生成" : "已生成" }}</span>
       </template>
     </el-table-column>
     <el-table-column label="操作">

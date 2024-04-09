@@ -215,7 +215,7 @@ const handleNodeClick = (type) => {
 }
 
 // 该对话框打开，进行数据初始化
-const open = (commodity, storeList, brandList, categoryTree, supplyList, placeList, unitList) => {
+const open = (commodity, storeList, brandList, categoryTree, unitList) => {
   visible.value = true;
   // 服务器中的图片地址
   imageUrl.value = WAREHOUSE_CONTEXT_PATH + commodity.imgs;
@@ -227,8 +227,6 @@ const open = (commodity, storeList, brandList, categoryTree, supplyList, placeLi
   stores.value = storeList.value;
   brands.value = brandList.value;
   categorys.value = categoryTree.value;
-  supplys.value = supplyList.value;
-  places.value = placeList.value;
   units.value = unitList.value;
 };
 

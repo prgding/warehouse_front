@@ -29,28 +29,28 @@
               <el-icon>
                 <ShoppingCart/>
               </el-icon>
-              <span>采购单列表</span>
+              <span>采购单管理</span>
             </el-menu-item>
 
             <el-menu-item index="4" @click="router.push('/instore/index')">
               <el-icon>
                 <SoldOut/>
               </el-icon>
-              <span>入库单列表</span>
+              <span>入库单管理</span>
             </el-menu-item>
 
             <el-menu-item index="5" @click="router.push('/outstore/index')">
               <el-icon>
                 <Sell/>
               </el-icon>
-              <span>出库单列表</span>
+              <span>出库单管理</span>
             </el-menu-item>
 
             <el-menu-item index="6" @click="router.push('/store/index')">
               <el-icon>
                 <House/>
               </el-icon>
-              <span>仓库列表</span>
+              <span>仓库管理</span>
             </el-menu-item>
 
             <el-menu-item index="7" @click="router.push('/statistics/index')">

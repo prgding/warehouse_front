@@ -241,7 +241,7 @@ import CommodityAdd from "./commodity-add.vue";
 
 const commodityAddRef = ref();
 const openCommodityAdd = () => {
-  commodityAddRef.value.open(storeList, brandList, categoryTree, supplyList, placeList, unitList);
+  commodityAddRef.value.open(storeList, brandList, categoryTree, unitList);
 };
 
 
@@ -250,7 +250,7 @@ import CommodityUpdate from "./commodity-update.vue";
 
 const commodityUpdateRef = ref();
 const openCommodityUpdate = (commodity) => {
-  commodityUpdateRef.value.open(commodity, storeList, brandList, categoryTree, supplyList, placeList, unitList);
+  commodityUpdateRef.value.open(commodity, storeList, brandList, categoryTree, unitList);
 };
 
 // 跳向修改采购单
