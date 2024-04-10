@@ -2,8 +2,8 @@
   <!-- 修改仓库对话框 -->
   <el-dialog v-model="visible" destroy-on-close title="修改仓库" width="400px" @close="close">
     <el-form ref="storeUpdateRef" :model="storeUpdate" :rules="rules" label-position="right" label-width="100px">
-      <el-form-item label="编号：" prop="storeNum">
-        <el-input v-model="storeUpdate.storeNum" disabled/>
+      <el-form-item label="编号：" prop="storeCode">
+        <el-input v-model="storeUpdate.storeCode" disabled/>
       </el-form-item>
       <el-form-item label="名称：" prop="storeName">
         <el-input v-model="storeUpdate.storeName"/>
@@ -11,8 +11,8 @@
       <el-form-item label="地址：" prop="storeAddress">
         <el-input v-model="storeUpdate.storeAddress"/>
       </el-form-item>
-      <el-form-item label="联系人：" prop="concat">
-        <el-input v-model="storeUpdate.concat"/>
+      <el-form-item label="联系人：" prop="contact">
+        <el-input v-model="storeUpdate.contact"/>
       </el-form-item>
       <el-form-item label="电话：" prop="phone">
         <el-input v-model="storeUpdate.phone"/>
@@ -39,9 +39,9 @@ const visible = ref(false);
 // 修改仓库对象
 const storeUpdate = reactive({
   storeName: '',
-  storeNum: '',
+  storeCode: '',
   storeAddress: '',
-  concat: '',
+  contact: '',
   phone: '',
 });
 

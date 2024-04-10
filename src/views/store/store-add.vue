@@ -5,14 +5,14 @@
       <el-form-item label="名称：" prop="storeName">
         <el-input v-model="storeAdd.storeName"/>
       </el-form-item>
-      <el-form-item label="编号：" prop="storeNum">
-        <el-input v-model="storeAdd.storeNum"/>
+      <el-form-item label="编号：" prop="storeCode">
+        <el-input v-model="storeAdd.storeCode"/>
       </el-form-item>
       <el-form-item label="地址：" prop="storeAddress">
         <el-input v-model="storeAdd.storeAddress"/>
       </el-form-item>
-      <el-form-item label="联系人：" prop="concat">
-        <el-input v-model="storeAdd.concat"/>
+      <el-form-item label="联系人：" prop="contact">
+        <el-input v-model="storeAdd.contact"/>
       </el-form-item>
       <el-form-item label="电话：" prop="phone">
         <el-input v-model="storeAdd.phone"/>
@@ -38,16 +38,16 @@ const visible = ref(false);
 // 添加仓库对象
 const storeAdd = reactive({
   storeName: '',
-  storeNum: '',
+  storeCode: '',
   storeAddress: '',
-  concat: '',
+  contact: '',
   phone: '',
 });
 
 // 验证仓库编号的唯一性
-const validateStoreNum = async (rule, storeNum, callback) => {
-  if (storeNum === '') return callback(new Error('请输入仓库编号！'));
-  const res = await get(`/store/store-num-check?storeNum=${storeNum}`);
+const validatestoreCode = async (rule, storeCode, callback) => {
+  if (storeCode === '') return callback(new Error('请输入仓库编号！'));
+  const res = await get(`/store/store-num-check?storeCode=${storeCode}`);
   if (!res.data) return callback(new Error('仓库编号已存在！'));
   return true;
 }
@@ -57,8 +57,8 @@ const rules = reactive({
   storeName: [
     {required: true, message: '请输入仓库名称', trigger: 'blur'}
   ],
-  storeNum: [
-    {validator: validateStoreNum, trigger: 'blur'}
+  storeCode: [
+    {validator: validatestoreCode, trigger: 'blur'}
   ]
 })
 

@@ -9,7 +9,7 @@
         <el-input v-model="params.storeAddress" clearable placeholder="仓库地址" style="width: 120px;"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-input v-model="params.concat" clearable placeholder="联系人" style="width: 120px;"></el-input>
+        <el-input v-model="params.contact" clearable placeholder="联系人" style="width: 120px;"></el-input>
       </el-form-item>
       <el-form-item>
         <el-input v-model="params.phone" clearable placeholder="电话" style="width: 120px;"></el-input>
@@ -38,9 +38,9 @@
     <el-table-column type="index" width="50"/>
     <el-table-column label="仓库ID" prop="storeId" sortable/>
     <el-table-column label="仓库名称" prop="storeName" sortable/>
-    <el-table-column label="仓库编码" prop="storeNum" sortable/>
+    <el-table-column label="仓库编码" prop="storeCode" sortable/>
     <el-table-column label="仓库地址" prop="storeAddress" sortable/>
-    <el-table-column label="联系人" prop="concat" sortable/>
+    <el-table-column label="联系人" prop="contact" sortable/>
     <el-table-column label="电话" prop="phone" sortable/>
     <el-table-column label="操作">
       <template #default="props">
@@ -82,7 +82,7 @@ const router = useRouter(); // 获取路由器
 const params = reactive({
   storeName: '',
   storeAddress: '',
-  concat: '',
+  contact: '',
   phone: '',
   pageSize: 5,
   pageNum: 1,

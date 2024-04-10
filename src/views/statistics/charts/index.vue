@@ -102,17 +102,17 @@ const option1 = reactive({
 // 监视器
 watch(option1, (newOption) => refreshChart(chartObj1, newOption));
 // 获取仓库的商品库存
-const getStoreInvent = () => {
-  get('/statistics/store-invent').then(res => {
+const getStoreStock = () => {
+  get('/statistics/store-stock').then(res => {
     const source = [{product: ''}];
     res.data.forEach(e => {
-      e.totalInvent = e.totalInvent ? e.totalInvent : 0;
-      source[0][e.storeName] = e.totalInvent;
+      e.totalStock = e.totalStock ? e.totalStock : 0;
+      source[0][e.storeName] = e.totalStock;
     });
     option1.dataset.source = source;
   });
 }
-getStoreInvent();
+getStoreStock();
 
 
 // 2. 占用比

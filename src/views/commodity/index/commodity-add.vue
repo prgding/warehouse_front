@@ -20,8 +20,8 @@
         <el-form-item label="名称：" prop="productName">
           <el-input v-model="commodityAdd.productName"/>
         </el-form-item>
-        <el-form-item label="编号：" prop="productNum">
-          <el-input v-model="commodityAdd.productNum"/>
+        <el-form-item label="编号：" prop="productCode">
+          <el-input v-model="commodityAdd.productCode"/>
         </el-form-item>
       </el-row>
       <el-row>
@@ -33,8 +33,8 @@
             <el-tree :data="categorys" :node-key="typeId" :props="defaultProps" @node-click="handleNodeClick"/>
           </el-popover>
         </el-form-item>
-        <el-form-item label="库存：" prop="productInvent">
-          <el-input-number v-model="commodityAdd.productInvent" min="0"/>
+        <el-form-item label="库存：" prop="productStock">
+          <el-input-number v-model="commodityAdd.productStock" min="0"/>
         </el-form-item>
       </el-row>
       <el-row>
@@ -73,8 +73,8 @@
         <el-form-item label="生产日期：" prop="productDate">
           <el-input v-model="commodityAdd.productDate" type="date"/>
         </el-form-item>
-        <el-form-item label="保质期：" prop="suppDate">
-          <el-input v-model="commodityAdd.suppDate" type="date"/>
+        <el-form-item label="保质期：" prop="bestBeforeDate">
+          <el-input v-model="commodityAdd.bestBeforeDate" type="date"/>
         </el-form-item>
       </el-row>
     </el-form>
@@ -135,19 +135,17 @@ const commodityAdd = reactive({
   productName: '',
   storeId: '',
   brandId: '',
-  productNum: '',
-  productInvent: 0,
+  productCode: '',
+  productStock: 0,
   typeId: '',
   typeName: '',
-  supplyId: '',
-  placeId: '',
   unitId: '',
   introduce: '',
   inPrice: 0,
   salePrice: 0,
   memPrice: 0,
   productDate: '',
-  suppDate: ''
+  bestBeforeDate: ''
 });
 
 // 表单验证规则
@@ -161,14 +159,8 @@ const rules = reactive({
   brandId: [
     {required: true, message: '请选择品牌', trigger: 'blur'}
   ],
-  productNum: [
+  productCode: [
     {required: true, message: '请输入商品编号', trigger: 'blur'}
-  ],
-  supplyId: [
-    {required: true, message: '请选择供应商', trigger: 'blur'}
-  ],
-  placeId: [
-    {required: true, message: '请选择产地', trigger: 'blur'}
   ],
   unitId: [
     {required: true, message: '请选择单位', trigger: 'blur'}
@@ -190,10 +182,6 @@ const stores = ref();
 const brands = ref();
 // 所有分类
 const categorys = ref();
-// 所有供应商
-const supplys = ref();
-// 所有产地
-const places = ref();
 // 所有单位
 const units = ref();
 
@@ -205,7 +193,7 @@ const defaultProps = {
 
 // 点击二级分类，显示到输入框
 const handleNodeClick = (type) => {
-  if (type && type.parentId != 0) {
+  if (type && type.parentId !== 0) {
     // 选择二级分类
     commodityAdd.typeId = type.typeId;
     commodityAdd.typeName = type.typeName;
@@ -213,15 +201,14 @@ const handleNodeClick = (type) => {
 }
 
 // 该对话框打开，进行数据初始化
-const open = (storeList, brandList, categoryTree, supplyList, placeList, unitList) => {
+const open = (storeList, brandList, categoryTree, unitList) => {
   visible.value = true;
   stores.value = storeList.value;
   brands.value = brandList.value;
   categorys.value = categoryTree.value;
-  supplys.value = supplyList.value;
-  places.value = placeList.value;
   units.value = unitList.value;
 };
+
 
 const commodityAddRef = ref();
 // 定义

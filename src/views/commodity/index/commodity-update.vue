@@ -20,8 +20,8 @@
         <el-form-item label="名称：" prop="productName">
           <el-input v-model="commodityUpdate.productName"/>
         </el-form-item>
-        <el-form-item label="编号：" prop="productNum">
-          <el-input v-model="commodityUpdate.productNum"/>
+        <el-form-item label="编号：" prop="productCode">
+          <el-input v-model="commodityUpdate.productCode"/>
         </el-form-item>
       </el-row>
       <el-row>
@@ -34,8 +34,8 @@
           </el-popover>
         </el-form-item>
 
-        <el-form-item  label="库存：" prop="productInvent">
-          <el-input-number v-model="commodityUpdate.productInvent" min='0'/>
+        <el-form-item  label="库存：" prop="productStock">
+          <el-input-number v-model="commodityUpdate.productStock" min='0'/>
         </el-form-item>
       </el-row>
       <el-row>
@@ -77,8 +77,8 @@
         <el-form-item label="生产日期：" prop="productDate">
           <el-input v-model="commodityUpdate.productDate" type="date"/>
         </el-form-item>
-        <el-form-item label="保质期：" prop="suppDate">
-          <el-input v-model="commodityUpdate.suppDate" type="date"/>
+        <el-form-item label="保质期：" prop="bestBeforeDate">
+          <el-input v-model="commodityUpdate.bestBeforeDate" type="date"/>
         </el-form-item>
       </el-row>
     </el-form>
@@ -140,19 +140,17 @@ const commodityUpdate = reactive({
   productName: '',
   storeId: '',
   brandId: '',
-  productNum: '',
-  productInvent: 0,
+  productCode: '',
+  productStock: 0,
   typeId: '',
   typeName: '',
-  supplyId: '',
-  placeId: '',
   unitId: '',
   introduce: '',
   inPrice: 0,
   salePrice: 0,
   memPrice: 0,
   productDate: '',
-  suppDate: ''
+  bestBeforeDate: ''
 });
 
 // 表单验证规则
@@ -166,7 +164,7 @@ const rules = reactive({
   brandId: [
     {required: true, message: '请选择品牌', trigger: 'blur'}
   ],
-  productNum: [
+  productCode: [
     {required: true, message: '请输入商品编号', trigger: 'blur'}
   ],
   supplyId: [

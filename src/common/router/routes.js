@@ -26,16 +26,8 @@ const routes = [
 				path: '/user/index',
 				name: 'userList',
 				component: () => import('@/views/user/index.vue'),
-				meta: {nav: ['用户管理', '用户列表']}
+				meta: {nav: ['用户管理']}
 			},
-			// 用户列表-修改权限
-			{
-				path: '/user/auth-update',
-				name: 'userAuthUpdate',
-				component: () => import('@/views/user/auth-update.vue'),
-				meta: {nav: ['用户管理', '用户列表', '更改权限']}
-			},
-
 			// 商品列表
 			{
 				path: '/commodity/index',
@@ -48,14 +40,14 @@ const routes = [
 				path: '/commodity/category',
 				name: 'commodityCategory',
 				component: () => import('@/views/commodity/category/index.vue'),
-				meta: {nav: ['商品管理', '商品分类']}
+				meta: {nav: ['商品管理', '商品分类管理']}
 			},
 			// 商品品牌
 			{
 				path: '/commodity/brand',
 				name: 'commodityBrand',
 				component: () => import('@/views/commodity/brand/index.vue'),
-				meta: {nav: ['商品管理', '商品品牌']}
+				meta: {nav: ['商品管理', '商品品牌管理']}
 			},
 			// 采购列表
 			{
@@ -105,6 +97,13 @@ const routes = [
 				name: 'storeList',
 				component: () => import('@/views/store/index.vue'),
 				meta: {nav: ['仓库管理', '仓库列表']}
+			},
+			// 单位设置
+			{
+				path: '/system/unit',
+				name: 'unitList',
+				component: () => import('@/views/system/unit/index.vue'),
+				meta: {nav: ['系统设置', '单位列表']}
 			},
 		]
 	},

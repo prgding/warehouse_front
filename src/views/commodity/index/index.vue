@@ -89,7 +89,7 @@
     <el-table-column label="品牌" prop="brandName" sortable/>
     <el-table-column label="类型" prop="typeName" sortable/>
     <el-table-column label="仓库" prop="storeName" sortable/>
-    <el-table-column label="库存" prop="productInvent" sortable/>
+    <el-table-column label="库存" prop="productStock" sortable/>
     <el-table-column label="上/下架" sortable>
       <template #default="props">
         <span>{{ props.row.upDownState == 0 ? "未上架" : "已上架" }}</span>
@@ -98,7 +98,7 @@
     <el-table-column label="售价" prop="salePrice" sortable/>
     <el-table-column label="单位" prop="unitName" sortable/>
     <el-table-column label="生产日期" prop="productDate" sortable/>
-    <el-table-column label="保质期" prop="suppDate" sortable/>
+    <el-table-column label="保质期" prop="bestBeforeDate" sortable/>
     <el-table-column fixed="right" label="操作" width="240">
       <template #default="props">
         <el-link v-if="props.row.upDownState==0" type="primary" @click.prevent="openCommodityUpdate(props.row)">修改</el-link>
@@ -151,8 +151,6 @@ const params = reactive({
   productName: '',
   brandName: '',
   typeName: '',
-  supplyName: '',
-  placeName: '',
   upDownState: '',
   isOverDate: '',
   pageSize: 5,

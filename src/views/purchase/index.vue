@@ -3,7 +3,7 @@
   <div>
     <el-form class="searchForm" inline>
       <el-form-item>
-        <el-select v-model="params.storeId" placeholder="仓库" clearable style="width: 120px;">
+        <el-select v-model="params.storeId" clearable placeholder="仓库" style="width: 120px;">
           <el-option v-for="store of storeList" :key="store.storeId" :label="store.storeName" :value="store.storeId"></el-option>
         </el-select>
       </el-form-item>
@@ -20,7 +20,7 @@
         <el-input v-model="params.buyUser" clearable placeholder="采购人" style="width: 120px;"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-select v-model="params.isIn" placeholder="入库单状态" clearable style="width: 130px;">
+        <el-select v-model="params.isCreated" clearable placeholder="入库单状态" style="width: 130px;">
           <el-option :value="0" label="未生成"></el-option>
           <el-option :value="1" label="已生成"></el-option>
         </el-select>
@@ -48,14 +48,14 @@
     <el-table-column label="采购人电话" prop="phone" sortable/>
     <el-table-column label="入库单状态" sortable>
       <template #default="props">
-        <span :class="{red:props.row.isIn==0, green: props.row.isIn==1}">{{ props.row.isIn == 0 ? "未生成" : "已生成" }}</span>
+        <span :class="{red:props.row.isCreated==='0', green: props.row.isCreated==='1'}">{{ props.row.isCreated === '0' ? "未生成" : "已生成" }}</span>
       </template>
     </el-table-column>
     <el-table-column label="操作">
       <template #default="props">
-        <el-button v-if="!props.row.factBuyNum || props.row.factBuyNum==0" :icon="Edit" circle title="修改采购单" type="primary" @click="openPurchaseUpdate(props.row)"/>
-        <el-button v-if="!props.row.factBuyNum || props.row.factBuyNum==0" :icon="Delete" circle title="删除采购单" type="danger" @click="deletePurchase(props.row.buyId)"/>
-        <el-button v-if="props.row.isIn==0 && props.row.factBuyNum>0" type="primary" @click="instore(props.row)">生成入库单</el-button>
+        <el-button v-if="!props.row.factBuyNum || props.row.factBuyNum===0" :icon="Edit" circle title="修改采购单" type="primary" @click="openPurchaseUpdate(props.row)"/>
+        <el-button v-if="!props.row.factBuyNum || props.row.factBuyNum===0" :icon="Delete" circle title="删除采购单" type="danger" @click="deletePurchase(props.row.buyId)"/>
+        <el-button v-if="props.row.isCreated==='0' && props.row.factBuyNum>0" type="primary" @click="instore(props.row)">生成入库单</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -80,8 +80,10 @@
 <script setup>
 import {reactive, ref} from 'vue';
 import {useRoute, useRouter} from 'vue-router'
-import {get, post, del, tip, export2excel} from "@/common";
-import {Search, Edit, Check, Message, Star, Delete, Plus} from '@element-plus/icons-vue'
+import {del, get, post, tip} from "@/common";
+import {Delete, Edit, Search} from '@element-plus/icons-vue'
+// 跳向修改采购单
+import PurchaseUpdate from "./purchase-update.vue";
 
 const route = useRoute(); // 获取路由信息
 
@@ -92,7 +94,7 @@ const params = reactive({
   endTime: '',
   productName: '',
   buyUser: '',
-  isIn: '',
+  isCreated: '',
   pageSize: 5,
   pageNum: 1,
   totalNum: 0
@@ -124,9 +126,6 @@ const getStoreList = () => {
   });
 }
 getStoreList();
-
-// 跳向修改采购单
-import PurchaseUpdate from "./purchase-update.vue";
 
 const purchaseUpdateRef = ref();
 const openPurchaseUpdate = (purchase) => {

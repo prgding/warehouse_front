@@ -60,6 +60,16 @@
               <span>统计报表</span>
             </el-menu-item>
 
+            <el-sub-menu index="8">
+              <template #title>
+                <el-icon>
+                  <Setting/>
+                </el-icon>
+                <span>系统设置</span>
+              </template>
+              <el-menu-item index="8-1" @click="router.push('/commodity/index')">商品单位管理</el-menu-item>
+            </el-sub-menu>
+
           </el-menu>
         </el-col>
       </el-row>
@@ -98,7 +108,7 @@
 import {ref} from "vue";
 import {useRouter} from "vue-router";
 import {del, get, removeLocalToken, tip} from "@/common";
-import {Fold, Goods, House, PieChart, Sell, ShoppingCart, SoldOut, User} from '@element-plus/icons-vue'
+import {Fold, Goods, House, PieChart, Sell, Setting, ShoppingCart, SoldOut, User} from '@element-plus/icons-vue'
 
 const router = useRouter(); // 获取路由器
 

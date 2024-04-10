@@ -59,7 +59,7 @@
   <el-table ref="multipleTableRef" :data="userList" border size="large" stripe style="width: 100%; margin-top: 10px;" table-layout="auto" @selection-change="handleSelectionChange">
     <el-table-column type="selection" width="55"/>
     <el-table-column label="用户ID" prop="userId" sortable/>
-    <el-table-column label="用户名" prop="userCode" sortable/>
+    <el-table-column label="用户账户" prop="userCode" sortable/>
     <el-table-column label="昵称" prop="userName" sortable/>
     <el-table-column label="用户状态" sortable>
       <template #default="props">
@@ -73,7 +73,6 @@
       </template>
     </el-table-column>
 
-    <el-table-column label="创建人" prop="getCode" sortable/>
     <el-table-column label="创建时间" prop="createTime" sortable/>
     <el-table-column label="操作">
       <template #default="props">
