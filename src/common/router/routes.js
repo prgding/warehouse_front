@@ -15,12 +15,12 @@ const routes = [
 		name: 'Home',
 		component: () => import('@/views/home.vue'),
 		children: [
-			// 首页
-			{
-				path: '', // 默认路径
-				name: 'index',
-				component: () => import('@/views/index/index.vue')
-			},
+			// // 首页
+			// {
+			// 	path: '', // 默认路径
+			// 	name: 'index',
+			// 	component: () => import('@/views/index/index.vue')
+			// },
 			// 用户列表
 			{
 				path: '/user/index',
@@ -49,40 +49,19 @@ const routes = [
 				component: () => import('@/views/commodity/brand/index.vue'),
 				meta: {nav: ['商品管理', '商品品牌管理']}
 			},
-			// 采购列表
-			{
-				path: '/purchase/index',
-				name: 'purchaseList',
-				component: () => import('@/views/purchase/index.vue'),
-				meta: {nav: ['采购管理', '采购列表']}
-			},
 			// 入库列表
 			{
-				path: '/instore/index',
-				name: 'instoreList',
-				component: () => import('@/views/instore/index.vue'),
+				path: '/in-warehouse/index',
+				name: 'inWarehouseList',
+				component: () => import('@/views/in-warehouse/index.vue'),
 				meta: {nav: ['入库管理', '入库列表']}
 			},
 			// 出库列表
 			{
-				path: '/outstore/index',
-				name: 'outstoreList',
-				component: () => import('@/views/outstore/index.vue'),
+				path: '/out-warehouse/index',
+				name: 'outWarehouseList',
+				component: () => import('@/views/out-warehouse/index.vue'),
 				meta: {nav: ['出库管理', '出库列表']}
-			},
-			// 调货单列表
-			{
-				path: '/transshipment/index',
-				name: 'transshipmentList',
-				component: () => import('@/views/transshipment/index.vue'),
-				meta: {nav: ['调货管理', '调货单列表']}
-			},
-			// 调货列表
-			{
-				path: '/transshipment/transfer',
-				name: 'transferList',
-				component: () => import('@/views/transshipment/transfer-list.vue'),
-				meta: {nav: ['调货管理', '调货列表']}
 			},
 			// 统计报表
 			{
@@ -93,9 +72,9 @@ const routes = [
 			},
 			// 仓库列表
 			{
-				path: '/store/index',
-				name: 'storeList',
-				component: () => import('@/views/store/index.vue'),
+				path: '/warehouse/index',
+				name: 'warehouseList',
+				component: () => import('@/views/warehouse/index.vue'),
 				meta: {nav: ['仓库管理', '仓库列表']}
 			},
 			// 单位设置
@@ -125,12 +104,13 @@ const routes = [
 const existsRoute_inner = (path, theRoutes) => {
 	for (let i = 0; i < theRoutes.length; i++) {
 		const r = theRoutes[i];
-		if (r.path == path) {
+		if (r.path !== path) {
+			if (r.children && r.children.length) {
+				const existsInChildren = existsRoute_inner(path, r.children);
+				if (existsInChildren) return true;
+			}
+		} else {
 			return true;
-		}
-		if (r.children && r.children.length) {
-			const existsInChildren = existsRoute_inner(path, r.children);
-			if (existsInChildren) return true;
 		}
 	}
 	return false;

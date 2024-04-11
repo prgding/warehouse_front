@@ -14,16 +14,8 @@
           <span>68件</span>
         </div>
         <div>
-          <label>入库量：</label>
-          <span>264件</span>
-        </div>
-        <div>
           <label>出库量：</label>
           <span>136件</span>
-        </div>
-        <div>
-          <label>调货量：</label>
-          <span>37件</span>
         </div>
       </div>
     </div>
@@ -89,9 +81,9 @@ const option1 = reactive({
   },
   tooltip: {},
   dataset: {
-    dimensions: ['product', '西安仓库', '北京仓库', '上海仓库'],
+    dimensions: ['xValue', '郑州仓库', '北京仓库', '上海仓库'],
     source: [
-      {product: '', '西安仓库': 0, '北京仓库': 0, '上海仓库': 0},
+      {xValue: '', '郑州仓库': 0, '北京仓库': 0, '上海仓库': 0},
     ]
   },
   xAxis: {type: 'category'},
@@ -102,17 +94,35 @@ const option1 = reactive({
 // 监视器
 watch(option1, (newOption) => refreshChart(chartObj1, newOption));
 // 获取仓库的商品库存
-const getStoreStock = () => {
-  get('/statistics/store-stock').then(res => {
-    const source = [{product: ''}];
+const getWarehouseStock = () => {
+  get('/statistics/warehouse-stock').then(res => {
+    const source = [{xValue: ''}];
     res.data.forEach(e => {
       e.totalStock = e.totalStock ? e.totalStock : 0;
-      source[0][e.storeName] = e.totalStock;
+      source[0][e.warehouseName] = e.totalStock;
     });
     option1.dataset.source = source;
+    console.log("source ==",source);
   });
 }
-getStoreStock();
+getWarehouseStock();
+
+const option = {
+  xAxis: {
+    type: 'category',
+    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+  },
+  yAxis: {
+    type: 'value'
+  },
+  series: [
+    {
+      data: [120, 200, 150, 80, 70, 110, 130],
+      type: 'bar'
+    }
+  ]
+};
+
 
 
 // 2. 占用比

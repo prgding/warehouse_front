@@ -1,11 +1,18 @@
 <template>
+
+  <div>
+    <el-button type="primary" @click="openUnitAdd()">
+      <el-icon>
+        <Plus/>
+      </el-icon>
+      &nbsp;添加单位
+    </el-button>
+  </div>
   <!-- 表格 -->
   <el-table :data="unitPageList" border size="large" stripe style="width: 100%; margin-top: 10px;" table-layout="auto">
     <el-table-column type="index" width="50"/>
     <el-table-column label="单位ID" prop="unitId" sortable/>
     <el-table-column label="单位名称" prop="unitName" sortable/>
-    <el-table-column label="单位首字母" prop="unitInitial" sortable/>
-    <el-table-column label="单位描述" prop="unitDesc" sortable/>
     <el-table-column label="操作">
       <template #default="props">
         <el-button :icon="Edit" circle title="修改单位" type="primary" @click="openUnitUpdate(props.row)"/>
@@ -36,9 +43,9 @@
 
 <script setup>
 import {reactive, ref} from 'vue';
-import {get, put, del, tip, export2excel, WAREHOUSE_CONTEXT_PATH} from "@/common";
+import {get, del, tip} from "@/common";
 import {useRouter} from "vue-router";
-import {Search, Edit, Check, Message, Star, Delete, Plus} from '@element-plus/icons-vue'
+import {Edit, Delete, Plus} from '@element-plus/icons-vue'
 
 const router = useRouter(); // 获取路由器
 

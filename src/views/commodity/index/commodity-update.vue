@@ -44,9 +44,9 @@
             <el-option v-for="brand of brands" :key="brand.brandId" :label="brand.brandName" :value="brand.brandId"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="仓库：" prop="storeId">
-          <el-select style="width: 168px" v-model="commodityUpdate.storeId" clearable placeholder="请选择仓库">
-            <el-option v-for="store of stores" :key="store.storeId" :label="store.storeName" :value="store.storeId"></el-option>
+        <el-form-item label="仓库：" prop="warehouseId">
+          <el-select style="width: 168px" v-model="commodityUpdate.warehouseId" clearable placeholder="请选择仓库">
+            <el-option v-for="warehouse of warehouses" :key="warehouse.warehouseId" :label="warehouse.warehouseName" :value="warehouse.warehouseId"></el-option>
           </el-select>
         </el-form-item>
       </el-row>
@@ -138,7 +138,7 @@ const commodityUpdate = reactive({
   imgs: '',
   productId: '',
   productName: '',
-  storeId: '',
+  warehouseId: '',
   brandId: '',
   productCode: '',
   productStock: 0,
@@ -158,7 +158,7 @@ const rules = reactive({
   productName: [
     {required: true, message: '请输入商品名称', trigger: 'blur'}
   ],
-  storeId: [
+  warehouseId: [
     {required: true, message: '请选择仓库', trigger: 'blur'}
   ],
   brandId: [
@@ -166,12 +166,6 @@ const rules = reactive({
   ],
   productCode: [
     {required: true, message: '请输入商品编号', trigger: 'blur'}
-  ],
-  supplyId: [
-    {required: true, message: '请选择供应商', trigger: 'blur'}
-  ],
-  placeId: [
-    {required: true, message: '请选择产地', trigger: 'blur'}
   ],
   unitId: [
     {required: true, message: '请选择单位', trigger: 'blur'}
@@ -184,15 +178,11 @@ const close = () => {
 }
 
 // 所有仓库
-const stores = ref();
+const warehouses = ref();
 // 所有品牌
 const brands = ref();
 // 所有分类
 const categorys = ref();
-// 所有供应商
-const supplys = ref();
-// 所有产地
-const places = ref();
 // 所有单位
 const units = ref();
 
@@ -213,7 +203,7 @@ const handleNodeClick = (type) => {
 }
 
 // 该对话框打开，进行数据初始化
-const open = (commodity, storeList, brandList, categoryTree, unitList) => {
+const open = (commodity, warehouseList, brandList, categoryTree, unitList) => {
   visible.value = true;
   // 服务器中的图片地址
   imageUrl.value = WAREHOUSE_CONTEXT_PATH + commodity.imgs;
@@ -222,7 +212,7 @@ const open = (commodity, storeList, brandList, categoryTree, unitList) => {
     commodityUpdate[prop] = commodity[prop];
   }
 
-  stores.value = storeList.value;
+  warehouses.value = warehouseList.value;
   brands.value = brandList.value;
   categorys.value = categoryTree.value;
   units.value = unitList.value;

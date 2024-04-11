@@ -77,7 +77,7 @@ const userAddForm = ref();
 const emit = defineEmits(["ok"]);
 // 添加用户提交
 const addUser = () => {
-  if (userAdd.userPwd != userAdd.confirmPassword) {
+  if (userAdd.userPwd !== userAdd.confirmPassword) {
     tip.error("两次密码必须保持一致！");
     return;
   }

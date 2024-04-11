@@ -5,9 +5,9 @@
         <el-col>
           <el-menu
               class="el-menu-vertical-demo"
-              default-active="2"
+              :default-active="$route.path"
           >
-            <el-menu-item v-if="currUser.isAdmin==='1'" index="1" @click="router.push('/user/index')">
+            <el-menu-item index="/user/index"  v-if="currUser.isAdmin==='1'" @click="router.push('/user/index')">
               <el-icon>
                 <User/>
               </el-icon>
@@ -20,40 +20,33 @@
                 </el-icon>
                 <span>商品管理</span>
               </template>
-              <el-menu-item index="2-1" @click="router.push('/commodity/index')">商品列表</el-menu-item>
-              <el-menu-item index="2-2" @click="router.push('/commodity/category')">商品分类管理</el-menu-item>
-              <el-menu-item index="2-3" @click="router.push('/commodity/brand')">商品品牌管理</el-menu-item>
+              <el-menu-item index="/commodity/index" @click="router.push('/commodity/index')">商品列表</el-menu-item>
+              <el-menu-item index="/commodity/category" @click="router.push('/commodity/category')">商品分类管理</el-menu-item>
+              <el-menu-item index="/commodity/brand" @click="router.push('/commodity/brand')">商品品牌管理</el-menu-item>
             </el-sub-menu>
 
-            <el-menu-item index="3" @click="router.push('/purchase/index')">
-              <el-icon>
-                <ShoppingCart/>
-              </el-icon>
-              <span>采购单管理</span>
-            </el-menu-item>
-
-            <el-menu-item index="4" @click="router.push('/instore/index')">
+            <el-menu-item index="/in-warehouse/index" @click="router.push('/in-warehouse/index')">
               <el-icon>
                 <SoldOut/>
               </el-icon>
               <span>入库单管理</span>
             </el-menu-item>
 
-            <el-menu-item index="5" @click="router.push('/outstore/index')">
+            <el-menu-item index="/out-warehouse/index" @click="router.push('/out-warehouse/index')">
               <el-icon>
                 <Sell/>
               </el-icon>
               <span>出库单管理</span>
             </el-menu-item>
 
-            <el-menu-item index="6" @click="router.push('/store/index')">
+            <el-menu-item index="/warehouse/index" @click="router.push('/warehouse/index')">
               <el-icon>
                 <House/>
               </el-icon>
               <span>仓库管理</span>
             </el-menu-item>
 
-            <el-menu-item index="7" @click="router.push('/statistics/index')">
+            <el-menu-item index="/statistics/index" @click="router.push('/statistics/index')">
               <el-icon>
                 <PieChart/>
               </el-icon>
@@ -67,13 +60,12 @@
                 </el-icon>
                 <span>系统设置</span>
               </template>
-              <el-menu-item index="8-1" @click="router.push('/commodity/index')">商品单位管理</el-menu-item>
+              <el-menu-item index="/system/unit" @click="router.push('/system/unit')">商品单位管理</el-menu-item>
             </el-sub-menu>
 
           </el-menu>
         </el-col>
       </el-row>
-
     </el-aside>
     <el-container class="main-container">
       <el-header>
@@ -105,24 +97,22 @@
 </template>
 
 <script setup>
-import {ref} from "vue";
+import {inject, ref} from "vue";
 import {useRouter} from "vue-router";
 import {del, get, removeLocalToken, tip} from "@/common";
 import {Fold, Goods, House, PieChart, Sell, Setting, ShoppingCart, SoldOut, User} from '@element-plus/icons-vue'
-
 const router = useRouter(); // 获取路由器
-
-// 当前路径
-/* const paths = ref([]);
-const selectMenu = (first, second) => {
-  paths.value = [first, second];
-} */
 
 // 获取当前登录用户
 const currUser = ref({});
 const getCurrentUser = () => {
   get("/curr-user").then(result => {
     currUser.value = result.data;
+    if (currUser.value.isAdmin === '1') {
+      router.push("/user/index");
+    } else {
+      router.push("/commodity/index");
+    }
   });
 }
 

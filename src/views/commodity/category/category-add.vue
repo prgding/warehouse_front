@@ -48,6 +48,7 @@ const validateCode = async (rule, typeCode, callback) => {
 // 输入框内容的基本规则
 const rules = reactive({
   typeCode: [
+    {required: true, message: '分类编码不能为空！', trigger: 'blur'},
     {validator: validateCode, trigger: 'blur'}
   ],
   typeName: [

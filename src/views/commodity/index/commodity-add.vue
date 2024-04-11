@@ -43,9 +43,9 @@
             <el-option v-for="brand of brands" :key="brand.brandId" :label="brand.brandName" :value="brand.brandId"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="仓库：" prop="storeId">
-          <el-select style="width: 168px" v-model="commodityAdd.storeId" clearable placeholder="请选择仓库">
-            <el-option v-for="store of stores" :key="store.storeId" :label="store.storeName" :value="store.storeId"></el-option>
+        <el-form-item label="仓库：" prop="warehouseId">
+          <el-select style="width: 168px" v-model="commodityAdd.warehouseId" clearable placeholder="请选择仓库">
+            <el-option v-for="warehouse of warehouses" :key="warehouse.warehouseId" :label="warehouse.warehouseName" :value="warehouse.warehouseId"></el-option>
           </el-select>
         </el-form-item>
       </el-row>
@@ -133,7 +133,7 @@ const beforeAvatarUpload = (rawFile) => {
 const commodityAdd = reactive({
   imgs: '',
   productName: '',
-  storeId: '',
+  warehouseId: '',
   brandId: '',
   productCode: '',
   productStock: 0,
@@ -153,7 +153,7 @@ const rules = reactive({
   productName: [
     {required: true, message: '请输入商品名称', trigger: 'blur'}
   ],
-  storeId: [
+  warehouseId: [
     {required: true, message: '请选择仓库', trigger: 'blur'}
   ],
   brandId: [
@@ -177,7 +177,7 @@ const close = () => {
 }
 
 // 所有仓库
-const stores = ref();
+const warehouses = ref();
 // 所有品牌
 const brands = ref();
 // 所有分类
@@ -201,9 +201,9 @@ const handleNodeClick = (type) => {
 }
 
 // 该对话框打开，进行数据初始化
-const open = (storeList, brandList, categoryTree, unitList) => {
+const open = (warehouseList, brandList, categoryTree, unitList) => {
   visible.value = true;
-  stores.value = storeList.value;
+  warehouses.value = warehouseList.value;
   brands.value = brandList.value;
   categorys.value = categoryTree.value;
   units.value = unitList.value;

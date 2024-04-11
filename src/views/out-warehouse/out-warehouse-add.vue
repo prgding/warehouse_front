@@ -1,24 +1,24 @@
 <template>
   <!-- 添加出库单对话框 -->
   <el-dialog v-model="visible" destroy-on-close title="添加出库单" width="400px" @close="close">
-    <el-form ref="outstoreAddForm" :model="outstoreAdd" :rules="rules" label-position="top" label-width="120px">
+    <el-form ref="outWarehouseAddForm" :model="outWarehouseAdd" :rules="rules" label-position="top" label-width="120px">
       <el-form-item label="商品名称：" prop="productName">
-        <el-input v-model="outstoreAdd.productName" disabled/>
+        <el-input v-model="outWarehouseAdd.productName" disabled/>
       </el-form-item>
-      <el-form-item label="仓库名称：" prop="storeName">
-        <el-input v-model="outstoreAdd.storeName" disabled/>
+      <el-form-item label="仓库名称：" prop="warehouseName">
+        <el-input v-model="outWarehouseAdd.warehouseName" disabled/>
       </el-form-item>
-      <el-form-item label="库存：" prop="productInvent">
-        <el-input v-model="outstoreAdd.productInvent" disabled/>
+      <el-form-item label="库存：" prop="productStock">
+        <el-input v-model="outWarehouseAdd.productStock" disabled/>
       </el-form-item>
       <el-form-item label="出库数量：" prop="outNum">
-        <el-input v-model="outstoreAdd.outNum"/>
+        <el-input v-model="outWarehouseAdd.outNum"/>
       </el-form-item>
     </el-form>
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="close">取消</el-button>
-        <el-button type="primary" @click="addOutstore">确定</el-button>
+        <el-button type="primary" @click="addOutWarehouse">确定</el-button>
       </span>
     </template>
   </el-dialog>
@@ -32,12 +32,12 @@ import {post, tip} from "@/common"
 const visible = ref(false);
 
 // 添加出库单对象
-const outstoreAdd = reactive({
+const outWarehouseAdd = reactive({
   productId: '',
   productName: '',
-  storeId: '',
-  storeName: '',
-  productInvent: '',
+  warehouseId: '',
+  warehouseName: '',
+  productStock: '',
   outNum: ''
 });
 
@@ -45,9 +45,9 @@ const outstoreAdd = reactive({
 const validateOutNum = (rule, outNum, callback) => {
   if (outNum === '') return callback(new Error('请输入出库数量！'));
   // 库存
-  const productInvent = parseInt(outstoreAdd.productInvent);
+  const productStock = parseInt(outWarehouseAdd.productStock);
   if (parseInt(outNum) <= 0) return callback(new Error('出库数量必须大于0！'));
-  if (parseInt(outNum) > productInvent) return callback(new Error('出库数量不能大于库存！'));
+  if (parseInt(outNum) > productStock) return callback(new Error('出库数量不能大于库存！'));
   return true;
 }
 
@@ -60,7 +60,7 @@ const rules = reactive({
 
 // 关闭
 const close = () => {
-  outstoreAdd.outNum = '';
+  outWarehouseAdd.outNum = '';
   visible.value = false;
 }
 
@@ -68,19 +68,19 @@ const close = () => {
 const open = (commodity) => {
   visible.value = true;
   for (let prop in commodity) {
-    outstoreAdd[prop] = commodity[prop];
+    outWarehouseAdd[prop] = commodity[prop];
   }
 };
 
-const outstoreAddForm = ref();
+const outWarehouseAddForm = ref();
 // 定义
 const emit = defineEmits(["ok"]);
 // 出库单提交
-const addOutstore = () => {
-  outstoreAddForm.value.validate((valid) => {
+const addOutWarehouse = () => {
+  outWarehouseAddForm.value.validate((valid) => {
     if (valid) {
-      post('/outstore/outstore-add', outstoreAdd).then(result => {
-        emit('ok', outstoreAdd.storeId);
+      post('/out-warehouse/add', outWarehouseAdd).then(result => {
+        emit('ok', outWarehouseAdd.warehouseId);
         tip.success(result.message);
       });
       visible.value = false; // 关闭对话框

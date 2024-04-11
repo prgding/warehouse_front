@@ -7,7 +7,7 @@
         <el-input v-model="params.userCode" clearable placeholder="用户名" style="width: 120px;"></el-input>
       </el-form-item>
       <el-form-item label="用户状态:" style="margin-left: 30px;">
-        <el-select v-model="params.userState" clearable placeholder="用户状态" style="width: 120px;">
+        <el-select v-model="params.isEnabled" clearable placeholder="用户状态" style="width: 120px;">
           <el-option label="启用" value="1"></el-option>
           <el-option label="禁用" value="0"></el-option>
         </el-select>
@@ -31,21 +31,21 @@
       </el-button>
 
       <el-select placeholder="批量操作" style="width: 110px;margin-left: 12px; position: relative; top: 2px;">
-        <el-option @click="enableUserList" value="1">
+        <el-option value="1" @click="enableUserList">
           <span>
             <el-icon><Check/></el-icon>
           </span>
           <span style="padding-left: 6px; position: relative; top: -2px;">启用</span>
         </el-option>
 
-        <el-option @click="disableUserList" value="2">
+        <el-option value="2" @click="disableUserList">
           <span style="float: left;">
             <el-icon><Close/></el-icon>
           </span>
           <span style="padding-left: 6px; position: relative; top: -2px;">禁用</span>
         </el-option>
 
-        <el-option @click="deleteUserList" value="3">
+        <el-option value="3" @click="deleteUserList">
           <span style="float: left;">
             <el-icon><delete/></el-icon>
           </span>
@@ -63,7 +63,7 @@
     <el-table-column label="昵称" prop="userName" sortable/>
     <el-table-column label="用户状态" sortable>
       <template #default="props">
-        <span :class="{red:props.row.userState==='0'}">{{ props.row.userState === "0" ? "禁用" : "启用" }}</span>
+        <span :class="{red:props.row.isEnabled===0}">{{ props.row.isEnabled === 0 ? "禁用" : "启用" }}</span>
       </template>
     </el-table-column>
 
@@ -78,8 +78,8 @@
       <template #default="props">
         <el-button :icon="Edit" circle title="修改用户" type="primary" @click="openUserUpdate(props.row)"/>
         <el-button :icon="Delete" circle title="删除用户" type="danger" @click="deleteUser(props.row.userId)"/>
-        <el-button type="warning" @click="updateState(props.row)">{{ props.row.userState === "1" ? "禁用" : "启用" }}</el-button>
-        <el-button v-if="props.row.userState==1" type="primary" @click="resetPwd(props.row.userId)">重置密码</el-button>
+        <el-button type="warning" @click="updateState(props.row)">{{ props.row.isEnabled === 1 ? "禁用" : "启用" }}</el-button>
+        <el-button v-if="props.row.isEnabled===1" type="primary" @click="resetPwd(props.row.userId)">重置密码</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -124,7 +124,7 @@ const router = useRouter(); // 获取路由器
 const params = reactive({
   userCode: '',
   userType: '',
-  userState: '',
+  isEnabled: '',
   pageSize: 5,
   pageNum: 1,
   totalNum: 0
@@ -167,7 +167,7 @@ const export2Table = () => {
       {"title": "用户ID", "key": "userId"},
       {"title": "用户名", "key": "userCode"},
       {"title": "昵称", "key": "userName"},
-      {"title": "用户状态", "key": "userState"},
+      {"title": "用户状态", "key": "isEnabled"},
       {"title": "创建人", "key": "getCode"},
       {"title": "创建时间", "key": "createTime"},
     ];
@@ -241,7 +241,7 @@ const disableUserList = () => {
 
 // 修改用户状态
 const updateState = (user) => {
-  user.userState = user.userState == "0" ? "1" : "0";
+  user.isEnabled = user.isEnabled === 0 ? 1 : 0;
   put('/user/updateState', user).then(result => {
     // 重新查询
     getUserList();

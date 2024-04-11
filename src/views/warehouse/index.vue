@@ -3,10 +3,10 @@
   <div>
     <el-form class="searchForm" inline>
       <el-form-item>
-        <el-input v-model="params.storeName" clearable placeholder="仓库名称" style="width: 120px;"></el-input>
+        <el-input v-model="params.warehouseName" clearable placeholder="仓库名称" style="width: 120px;"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-input v-model="params.storeAddress" clearable placeholder="仓库地址" style="width: 120px;"></el-input>
+        <el-input v-model="params.warehouseAddress" clearable placeholder="仓库地址" style="width: 120px;"></el-input>
       </el-form-item>
       <el-form-item>
         <el-input v-model="params.contact" clearable placeholder="联系人" style="width: 120px;"></el-input>
@@ -15,7 +15,7 @@
         <el-input v-model="params.phone" clearable placeholder="电话" style="width: 120px;"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="getStorePageList">
+        <el-button type="primary" @click="getWarehousePageList">
           <el-icon>
             <Search/>
           </el-icon>
@@ -24,7 +24,7 @@
       </el-form-item>
     </el-form>
     <div>
-      <el-button type="primary" @click="openStoreAdd()">
+      <el-button type="primary" @click="openWarehouseAdd()">
         <el-icon>
           <Plus/>
         </el-icon>
@@ -34,18 +34,19 @@
   </div>
 
   <!-- 表格 -->
-  <el-table :data="storePageList" border size="large" stripe style="width: 100%; margin-top: 10px;" table-layout="auto">
+  <el-table :data="warehousePageList" border size="large" stripe style="width: 100%; margin-top: 10px;" table-layout="auto">
     <el-table-column type="index" width="50"/>
-    <el-table-column label="仓库ID" prop="storeId" sortable/>
-    <el-table-column label="仓库名称" prop="storeName" sortable/>
-    <el-table-column label="仓库编码" prop="storeCode" sortable/>
-    <el-table-column label="仓库地址" prop="storeAddress" sortable/>
+    <el-table-column label="仓库ID" prop="warehouseId" sortable/>
+    <el-table-column label="仓库名称" prop="warehouseName" sortable/>
+    <el-table-column label="仓库编码" prop="warehouseCode" sortable/>
+    <el-table-column label="仓库地址" prop="warehouseAddress" sortable/>
+    <el-table-column label="仓库容量" prop="capacity" sortable/>
     <el-table-column label="联系人" prop="contact" sortable/>
     <el-table-column label="电话" prop="phone" sortable/>
     <el-table-column label="操作">
       <template #default="props">
-        <el-button :icon="Edit" circle title="修改仓库" type="primary" @click="openStoreUpdate(props.row)"/>
-        <el-button :icon="Delete" circle title="删除仓库" type="danger" @click="deleteStore(props.row.storeId)"/>
+        <el-button :icon="Edit" circle title="修改仓库" type="primary" @click="openWarehouseUpdate(props.row)"/>
+        <el-button :icon="Delete" circle title="删除仓库" type="danger" @click="deleteWarehouse(props.row.warehouseId)"/>
       </template>
     </el-table-column>
   </el-table>
@@ -63,25 +64,25 @@
   />
 
   <!-- 添加仓库对话框 -->
-  <store-add ref="storeAddRef" @ok="getStorePageList"></store-add>
+  <warehouse-add ref="warehouseAddRef" @ok="getWarehousePageList"></warehouse-add>
 
   <!-- 修改仓库对话框 -->
-  <store-update ref="storeUpdateRef" @ok="getStorePageList"></store-update>
+  <warehouse-update ref="warehouseUpdateRef" @ok="getWarehousePageList"></warehouse-update>
 
 </template>
 
 <script setup>
 import {reactive, ref} from 'vue';
-import {get, put, del, tip, export2excel, WAREHOUSE_CONTEXT_PATH} from "@/common";
+import {get, del, tip} from "@/common";
 import {useRouter} from "vue-router";
-import {Search, Edit, Check, Message, Star, Delete, Plus} from '@element-plus/icons-vue'
+import {Search, Edit, Delete, Plus} from '@element-plus/icons-vue'
 
 const router = useRouter(); // 获取路由器
 
 // 分页模糊查询数据
 const params = reactive({
-  storeName: '',
-  storeAddress: '',
+  warehouseName: '',
+  warehouseAddress: '',
   contact: '',
   phone: '',
   pageSize: 5,
@@ -90,42 +91,42 @@ const params = reactive({
 })
 
 // 表格数据
-const storePageList = ref();
+const warehousePageList = ref();
 
 // 获取分页模糊查询结果
-const getStorePageList = () => {
-  get("/store/store-page-list", params).then(result => {
-    storePageList.value = result.data.resultList;
+const getWarehousePageList = () => {
+  get("/warehouse/warehouse-page-list", params).then(result => {
+    warehousePageList.value = result.data.resultList;
     params.totalNum = result.data.totalNum;
   });
 }
-getStorePageList();
+getWarehousePageList();
 
 
 // 跳向添加仓库
-import storeAdd from "./store-add.vue";
+import warehouseAdd from "./warehouse-add.vue";
 
-const storeAddRef = ref();
-const openStoreAdd = () => {
-  storeAddRef.value.open();
+const warehouseAddRef = ref();
+const openWarehouseAdd = () => {
+  warehouseAddRef.value.open();
 };
 
 
 // 跳向修改仓库
-import storeUpdate from "./store-update.vue";
+import warehouseUpdate from "./warehouse-update.vue";
 
-const storeUpdateRef = ref();
-const openStoreUpdate = (store) => {
-  storeUpdateRef.value.open(store);
+const warehouseUpdateRef = ref();
+const openWarehouseUpdate = (warehouse) => {
+  warehouseUpdateRef.value.open(warehouse);
 };
 
 
 // 删除仓库
-const deleteStore = (storeId) => {
-  del(`/store/store-delete/${storeId}`, null, {title: "提示", message: "您确定删除该仓库吗？"}).then(result => {
+const deleteWarehouse = (warehouseId) => {
+  del(`/warehouse/warehouse-delete/${warehouseId}`, null, {title: "提示", message: "您确定删除该仓库吗？"}).then(result => {
     tip.success(result.message);
     // 重新查询
-    getStorePageList();
+    getWarehousePageList();
   });
 }
 
@@ -133,13 +134,13 @@ const deleteStore = (storeId) => {
 const changeSize = (size) => {
   params.pageSize = size;
   // 重新查询
-  getStorePageList();
+  getWarehousePageList();
 }
 // 修改当前页码
 const changeCurrent = (num) => {
   params.pageNum = num;
   // 重新查询
-  getStorePageList();
+  getWarehousePageList();
 }
 </script>
 
