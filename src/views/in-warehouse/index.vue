@@ -42,7 +42,6 @@
     <el-table-column label="仓库名称" prop="warehouseName" sortable/>
     <el-table-column label="商品名称" prop="productName" sortable/>
     <el-table-column label="入库数量" prop="inNum" sortable/>
-    <el-table-column label="入库价格" prop="inPrice" sortable/>
     <el-table-column label="入库状态" sortable>
       <template #default="props">
         <span :class="{red:props.row.isIn===0, green: props.row.isIn===1}">{{ props.row.isIn === 0 ? "未入库" : "已入库" }}</span>

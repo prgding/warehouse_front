@@ -11,11 +11,11 @@
       <div class="container">
         <div>
           <label>采购量：</label>
-          <span>68件</span>
+          <span>{{todayIn}} 件</span>
         </div>
         <div>
           <label>出库量：</label>
-          <span>136件</span>
+          <span>{{todayOut}} 件</span>
         </div>
       </div>
     </div>
@@ -81,48 +81,40 @@ const option1 = reactive({
   },
   tooltip: {},
   dataset: {
-    dimensions: ['xValue', '郑州仓库', '北京仓库', '上海仓库'],
+    dimensions: ['xValue', '郑州仓库', '北京仓库'],
     source: [
-      {xValue: '', '郑州仓库': 0, '北京仓库': 0, '上海仓库': 0},
+      {xValue: '', '郑州仓库': 0, '北京仓库': 0},
     ]
   },
   xAxis: {type: 'category'},
   yAxis: {name: '单位：件/箱'},
-  series: [{type: 'bar'}, {type: 'bar'}, {type: 'bar'}]
+  series: [{type: 'bar'}, {type: 'bar'}]
 });
 
 // 监视器
 watch(option1, (newOption) => refreshChart(chartObj1, newOption));
+
+const warehouseNames = ref([]);
+const warehouseStocks = ref([]);
 // 获取仓库的商品库存
 const getWarehouseStock = () => {
   get('/statistics/warehouse-stock').then(res => {
-    const source = [{xValue: ''}];
-    res.data.forEach(e => {
-      e.totalStock = e.totalStock ? e.totalStock : 0;
-      source[0][e.warehouseName] = e.totalStock;
+    warehouseNames.value = res.data.map(item => item.warehouseName);
+    warehouseStocks.value = res.data.map(item => item.totalStock);
+    // 更新option1
+    option1.dataset.dimensions = ['xValue', ...warehouseNames.value];
+    option1.series = warehouseNames.value.map(name => ({type: 'bar'}));
+
+    option1.dataset.source = res.data.map(item => {
+      return {
+        xValue: '',
+        [item.warehouseName]: item.totalStock
+      };
     });
-    option1.dataset.source = source;
-    console.log("source ==",source);
+
   });
 }
 getWarehouseStock();
-
-const option = {
-  xAxis: {
-    type: 'category',
-    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-  },
-  yAxis: {
-    type: 'value'
-  },
-  series: [
-    {
-      data: [120, 200, 150, 80, 70, 110, 130],
-      type: 'bar'
-    }
-  ]
-};
-
 
 
 // 2. 占用比
@@ -173,12 +165,23 @@ const option2 = reactive({
       },
       data: [
         {
-          value: 56.43,
+          value: 0.0,
         }
       ]
     }
   ]
 });
+
+// 监视器
+watch(option2, (newOption) => refreshChart(chartObj2, newOption));
+
+// 获取占用比
+const getOccupancyRate = () => {
+  get('/statistics/occupancy-rate').then(res => {
+    option2.series[0].data[0].value = res.data;
+  });
+}
+getOccupancyRate();
 
 // 3. 各仓库存储走势
 const option3 = reactive({
@@ -192,7 +195,7 @@ const option3 = reactive({
     orient: "vertical",
     right: 5,
     top: -5,
-    data: ['西安仓库', '北京仓库', '上海仓库']
+    data: ['仓库1', '仓库2']
   },
   grid: {
     left: '3%',
@@ -212,25 +215,54 @@ const option3 = reactive({
   },
   series: [
     {
-      name: '西安仓库',
+      name: '仓库1',
       type: 'line',
       stack: 'Total',
       data: [120, 132, 101, 134, 90, 230]
     },
     {
-      name: '北京仓库',
+      name: '仓库2',
       type: 'line',
       stack: 'Total',
       data: [220, 182, 191, 234, 290, 330]
-    },
-    {
-      name: '上海仓库',
-      type: 'line',
-      stack: 'Total',
-      data: [150, 232, 201, 154, 190, 330]
     }
   ]
 });
+
+const thisRes = {
+  data: {
+    month: ['1月', '2月', '3月', '4月'],
+    series: [
+      {
+        name: '仓库1',
+        type: 'line',
+        stack: 'Total',
+        data: [100, 100, 100, 100]
+      },
+      {
+        name: '仓库2',
+        type: 'line',
+        stack: 'Total',
+        data: [200, 200, 200, 200]
+      }
+    ]
+  }
+};
+
+// 监视器
+watch(option3, (newOption) => refreshChart(chartObj3, newOption));
+
+// 获取各仓库存储走势
+const getWarehouseTrend = () => {
+  get('/statistics/warehouse-trend').then(res => {
+    console.log("res,trend ==", res);
+    console.log("res,thisRes", thisRes);
+    option3.xAxis.data = res.data.month;
+    option3.legend.data = res.data.series.map(item => item.name);
+    option3.series = res.data.series;
+  });
+}
+getWarehouseTrend();
 
 // 4. 各仓库出库入库情况
 const option4 = reactive({
@@ -255,6 +287,22 @@ const option4 = reactive({
   yAxis: {name: '单位：件/箱'},
   series: [{type: 'bar'}, {type: 'bar'}]
 });
+
+// 监视器
+watch(option4, (newOption) => refreshChart(chartObj4, newOption));
+
+// 获取各仓库出入库情况
+const getWarehouseInOut = () => {
+  get('/statistics/warehouse-in-out').then(res => {
+    option4.dataset.source = res.data.map(item => {
+      return {
+        product: item.month,
+        '入库': item.inStock,
+        '出库': item.outStock
+      };
+    });
+  });
+}
 
 
 // 5. 仓库采购量
@@ -297,6 +345,15 @@ const option5 = reactive({
 
 // 6. 
 reactive({});
+const todayIn = ref(0);
+const todayOut = ref(0);
+const getTodayInAndOut = () => {
+  get('/statistics/today-in-out').then(res => {
+    todayIn.value = res.data[0];
+    todayOut.value = res.data[1];
+  });
+}
+getTodayInAndOut();
 </script>
 
 <style scoped>

@@ -34,8 +34,10 @@
           </el-popover>
         </el-form-item>
 
-        <el-form-item  label="库存：" prop="productStock">
-          <el-input-number v-model="commodityUpdate.productStock" min='0'/>
+        <el-form-item label="单位：" prop="unitId">
+          <el-select style="width: 168px" v-model="commodityUpdate.unitId" clearable placeholder="请选择单位">
+            <el-option v-for="unit of units" :key="unit.unitId" :label="unit.unitName" :value="unit.unitId"></el-option>
+          </el-select>
         </el-form-item>
       </el-row>
       <el-row>
@@ -52,20 +54,11 @@
       </el-row>
 
       <el-row>
-        <el-form-item label="单位：" prop="unitId">
-          <el-select style="width: 168px" v-model="commodityUpdate.unitId" clearable placeholder="请选择单位">
-            <el-option v-for="unit of units" :key="unit.unitId" :label="unit.unitName" :value="unit.unitId"></el-option>
-          </el-select>
-        </el-form-item>
-      </el-row>
-
-      <el-row>
         <el-form-item label="进价：" prop="inPrice">
-          <el-input v-model="commodityUpdate.inPrice" style="width: 90%;"/>
-          &nbsp;元
+          <el-input v-model="commodityUpdate.inPrice"/>
         </el-form-item>
         <el-form-item label="售价：" prop="salePrice">
-          <el-input v-model="commodityUpdate.salePrice" style="width: 90%;"/>
+          <el-input v-model="commodityUpdate.salePrice" style="width: 80%"/>
           &nbsp;元
         </el-form-item>
       </el-row>
@@ -74,12 +67,21 @@
         <el-input v-model="commodityUpdate.introduce" rows="2" type="textarea"/>
       </el-form-item>
       <el-row>
-        <el-form-item label="生产日期：" prop="productDate">
-          <el-input v-model="commodityUpdate.productDate" type="date"/>
-        </el-form-item>
-        <el-form-item label="保质期：" prop="bestBeforeDate">
-          <el-input v-model="commodityUpdate.bestBeforeDate" type="date"/>
-        </el-form-item>
+        <el-date-picker
+            style="margin-left: 50px; padding-left: 50px"
+            v-model="commodityUpdate.productionDate"
+            type="date"
+            value-format="YYYY-MM-DD"
+            placeholder="生产日期："
+        />
+
+        <el-date-picker
+            style="margin-left: 50px; padding-left: 50px"
+            v-model="commodityUpdate.bestBeforeDate"
+            type="date"
+            value-format="YYYY-MM-DD"
+            placeholder="保质期："
+        />
       </el-row>
     </el-form>
     <template #footer>
@@ -149,7 +151,7 @@ const commodityUpdate = reactive({
   inPrice: 0,
   salePrice: 0,
   memPrice: 0,
-  productDate: '',
+  productionDate: '',
   bestBeforeDate: ''
 });
 
