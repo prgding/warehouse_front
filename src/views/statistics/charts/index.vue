@@ -3,9 +3,9 @@
   <div class="report-charts">
     <div ref="chart1" class="charts"></div>
     <div ref="chart2" class="charts"></div>
-    <div ref="chart3" class="charts"></div>
-    <div ref="chart4" class="charts" style="margin-top: 20px;"></div>
-    <div ref="chart5" class="charts" style="margin-top: 20px;"></div>
+<!--    <div ref="chart3" class="charts"></div>-->
+<!--    <div ref="chart4" class="charts" style="margin-top: 20px;"></div>-->
+<!--    <div ref="chart5" class="charts" style="margin-top: 20px;"></div>-->
     <div class="charts" style="margin-top: 20px;">
       <h3>今日实时数据监测：</h3>
       <div class="container">
@@ -25,8 +25,9 @@
 
 <script setup>
 import {nextTick, onMounted, reactive, ref, watch} from "vue";
-import {get} from "@/common";
+import {get, tip} from "@/common";
 import * as echarts from 'echarts';
+import {ElMessage} from "element-plus";
 
 const chart1 = ref();
 const chart2 = ref();
@@ -179,6 +180,10 @@ watch(option2, (newOption) => refreshChart(chartObj2, newOption));
 const getOccupancyRate = () => {
   get('/statistics/occupancy-rate').then(res => {
     option2.series[0].data[0].value = res.data;
+    if (res.data > 80) {
+      // 弹出提示
+      ElMessage.error('占用比超过80%，建议优化库存！');
+    }
   });
 }
 getOccupancyRate();
@@ -262,7 +267,7 @@ const getWarehouseTrend = () => {
     option3.series = res.data.series;
   });
 }
-getWarehouseTrend();
+// getWarehouseTrend();
 
 // 4. 各仓库出库入库情况
 const option4 = reactive({
@@ -343,8 +348,22 @@ const option5 = reactive({
   ]
 });
 
+// 监视器
+watch(option5, (newOption) => refreshChart(chartObj5, newOption));
+
+// 获取仓库采购量
+const getWarehousePurchase = () => {
+  get('/statistics/category-ratio').then(res => {
+    option5.series[0].data = res.data.map(item => {
+      return {
+        value: item.purchaseAmount,
+        name: item.productName
+      };
+    });
+  });
+}
+
 // 6. 
-reactive({});
 const todayIn = ref(0);
 const todayOut = ref(0);
 const getTodayInAndOut = () => {
