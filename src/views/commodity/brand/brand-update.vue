@@ -1,7 +1,7 @@
 <template>
   <!-- 修改品牌对话框 -->
   <el-dialog v-model="visible" destroy-on-close title="修改品牌" width="400px" @close="close">
-    <el-form ref="brandUpdateRef" :model="brandUpdate" :rules="rules" label-position="right" label-width="100px">
+    <el-form ref="brandUpdateRef" :model="brandUpdate" :rules="rules" label-position="right" label-width="120px">
       <el-form-item label="品牌ID：" prop="brandId">
         <el-input v-model="brandUpdate.brandId" disabled/>
       </el-form-item>
@@ -43,6 +43,9 @@ const brandUpdate = reactive({
 const rules = reactive({
   brandName: [
     {required: true, message: '请输入品牌名称', trigger: 'blur'}
+  ],
+  brandInitial: [
+    {required: true, message: '请输入品牌首字母', trigger: 'blur'}
   ]
 })
 

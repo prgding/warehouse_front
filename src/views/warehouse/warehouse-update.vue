@@ -52,6 +52,18 @@ const warehouseUpdate = reactive({
 const rules = reactive({
   warehouseName: [
     {required: true, message: '请输入仓库名称', trigger: 'blur'}
+  ],
+  warehouseAddress: [
+    {required: true, message: '请输入仓库地址', trigger: 'blur'}
+  ],
+  capacity: [
+    {required: true, message: '请输入仓库容量', trigger: 'blur'}
+  ],
+  contact: [
+    {required: true, message: '请输入联系人', trigger: 'blur'}
+  ],
+  phone: [
+    {required: true, message: '请输入电话', trigger: 'blur'}
   ]
 })
 

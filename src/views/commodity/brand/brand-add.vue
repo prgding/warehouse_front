@@ -51,7 +51,10 @@ const rules = reactive({
   ],
   brandId: [
     {validator: validateBrandNum, trigger: 'blur'}
-  ]
+  ],
+  brandInitial: [
+    {required: true, message: '请输入品牌首字母', trigger: 'blur'}
+  ],
 })
 
 // 关闭

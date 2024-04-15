@@ -70,7 +70,7 @@
             v-model="commodityAdd.productionDate"
             type="date"
             value-format="YYYY-MM-DD"
-            placeholder="生产日期："
+            placeholder="*生产日期："
         />
 
         <el-date-picker
@@ -78,7 +78,7 @@
             v-model="commodityAdd.bestBeforeDate"
             type="date"
             value-format="YYYY-MM-DD"
-            placeholder="保质期："
+            placeholder="*保质期："
         />
       </el-row>
     </el-form>
@@ -159,6 +159,15 @@ const rules = reactive({
   warehouseId: [
     {required: true, message: '请选择仓库', trigger: 'blur'}
   ],
+  typeId:[
+    {required: true, message: '请选择分类', trigger: 'blur'}
+  ],
+  inPrice: [
+    {required: true, message: '请输入进价', trigger: 'blur'}
+  ],
+  salePrice: [
+    {required: true, message: '请输入售价', trigger: 'blur'}
+  ],
   brandId: [
     {required: true, message: '请选择品牌', trigger: 'blur'}
   ],
@@ -168,6 +177,12 @@ const rules = reactive({
   unitId: [
     {required: true, message: '请选择单位', trigger: 'blur'}
   ],
+  productionDate: [
+    {required: true, message: '请选择生产日期', trigger: 'blur'}
+  ],
+  bestBeforeDate: [
+    {required: true, message: '请选择保质期', trigger: 'blur'}
+  ]
 })
 
 // 关闭

@@ -70,6 +70,12 @@ const rules = reactive({
   ],
   capacity: [
     {required: true, message: '请输入仓库容量', trigger: 'blur'}
+  ],
+  contact: [
+    {required: true, message: '请输入联系人', trigger: 'blur'}
+  ],
+  phone: [
+    {required: true, message: '请输入电话', trigger: 'blur'}
   ]
 })
 

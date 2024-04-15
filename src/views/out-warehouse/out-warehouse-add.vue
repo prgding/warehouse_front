@@ -54,6 +54,7 @@ const validateOutNum = (rule, outNum, callback) => {
 // 表单验证规则
 const rules = reactive({
   outNum: [
+    {required: true, message: '请输入出库数量', trigger: 'blur'},
     {validator: validateOutNum, trigger: 'blur'}
   ]
 })
