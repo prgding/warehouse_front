@@ -1,5 +1,5 @@
 <template>
-  <div class="report-charts-title">国际云仓储数据中心</div>
+  <div class="report-charts-title">仓储数据中心</div>
   <div class="report-charts">
     <div ref="chart1" class="charts"></div>
     <div ref="chart2" class="charts"></div>
