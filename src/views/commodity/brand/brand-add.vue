@@ -39,7 +39,7 @@ const brandAdd = reactive({
 // 验证品牌编号的唯一性
 const validateBrandNum = async (rule, brandNum, callback) => {
   if (brandNum === '') return callback(new Error('请输入品牌编号！'));
-  const res = await get(`/brand/brand-num-check?brandNum=${brandNum}`);
+  const res = await get(`/product/brand-num-check?brandNum=${brandNum}`);
   if (!res.data) return callback(new Error('品牌编号已存在！'));
   return true;
 }
@@ -78,7 +78,7 @@ const emit = defineEmits(["ok"]);
 const addBrand = () => {
   brandAddRef.value.validate(valid => {
     if (valid) {
-      post('/brand/brand-add', brandAdd).then(result => {
+      post('/product/brand-add', brandAdd).then(result => {
         emit('ok');
         tip.success(result.message);
         visible.value = false; // 关闭对话框

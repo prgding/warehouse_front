@@ -40,7 +40,7 @@ const categoryAdd = reactive({
 const validateCode = async (rule, typeCode, callback) => {
   typeCode = typeCode.trim();
   if (typeCode === '') return callback(new Error('请输入分类编码！'));
-  const res = await get(`/productCategory/verify-type-code?typeCode=${typeCode}`);
+  const res = await get(`/product/verify-type-code?typeCode=${typeCode}`);
   if (!res.data) return callback(new Error('该分类编码已存在！'));
   return true;
 }
@@ -84,7 +84,7 @@ const emit = defineEmits(["ok"]);
 const addCategory = () => {
   categoryAddForm.value.validate(valid => {
     if (valid) {
-      post('/productCategory/type-add', categoryAdd).then(result => {
+      post('/product/type-add', categoryAdd).then(result => {
         emit('ok');
         tip.success(result.message);
         visible.value = false; // 关闭对话框

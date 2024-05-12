@@ -154,7 +154,7 @@ getWarehouseList();
 const brandList = ref();
 // 获取所有品牌
 const getBrandList = () => {
-  get("/brand/brand-list").then(result => {
+  get("/product/brand-list").then(result => {
     brandList.value = result.data;
   });
 }

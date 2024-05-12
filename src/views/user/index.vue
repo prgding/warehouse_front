@@ -158,23 +158,6 @@ const handleSelectionChange = (val) => {
   multipleSelection.value = val;
 }
 
-// 导出数据
-const export2Table = () => {
-  get("/user/exportTable", params).then(result => {
-    // 要导出的数据
-    const userList = result.data;
-    const columns = [
-      {"title": "用户ID", "key": "userId"},
-      {"title": "用户名", "key": "userCode"},
-      {"title": "昵称", "key": "userName"},
-      {"title": "用户状态", "key": "isEnabled"},
-      {"title": "创建人", "key": "getCode"},
-      {"title": "创建时间", "key": "createTime"},
-    ];
-    export2excel(columns, userList, "员工信息表");
-  });
-}
-
 // 删除用户提交
 const deleteUser = (userId) => {
   del(`/user/deleteUser/${userId}`, null, {title: "提示", message: "您确定删除该用户吗？"}).then(result => {

@@ -64,7 +64,7 @@ const emit = defineEmits(["ok"]);
 const updateCategory = () => {
   categoryUpdateForm.value.validate(valid => {
     if (valid) {
-      put('/productCategory/type-update', categoryUpdate).then(result => {
+      put('/product/type-update', categoryUpdate).then(result => {
         emit('ok');
         tip.success(result.message);
         visible.value = false; // 关闭对话框

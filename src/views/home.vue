@@ -106,7 +106,7 @@ const router = useRouter(); // 获取路由器
 // 获取当前登录用户
 const currUser = ref({});
 const getCurrentUser = () => {
-  get("/curr-user").then(result => {
+  get("/user/curr-user").then(result => {
     currUser.value = result.data;
     if (currUser.value.isAdmin === '1') {
       router.push("/user/index");
@@ -120,7 +120,7 @@ getCurrentUser();
 
 // 退出
 const logout = () => {
-  del("/logout").then(result => {
+  del("/user/logout").then(result => {
     // 删除本地token
     removeLocalToken();
     // 替换路由

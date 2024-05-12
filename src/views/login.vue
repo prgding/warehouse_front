@@ -107,7 +107,7 @@ const login = () => {
   loginForm.value.validate((valid) => {
     if (valid) {
       // 向服务端发出post请求
-      post("/login", loginUser).then((result) => {
+      post("/user/login", loginUser).then((result) => {
         // 从回送结果中取出令牌，并将令牌存于客户端
         setLocalToken(result.data);
         tip.success("登录成功！");

@@ -70,7 +70,7 @@ const emit = defineEmits(["ok"]);
 const updateBrand = () => {
   brandUpdateRef.value.validate(valid => {
     if (valid) {
-      put('/brand/brand-update', brandUpdate).then(result => {
+      put('/product/brand-update', brandUpdate).then(result => {
         emit('ok');
         tip.success(result.message);
         visible.value = false; // 关闭对话框

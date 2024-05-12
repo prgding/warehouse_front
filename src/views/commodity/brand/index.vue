@@ -89,7 +89,7 @@ const brandPageList = ref();
 
 // 获取分页模糊查询结果
 const getBrandPageList = () => {
-  get("/brand/brand-page-list", params).then(result => {
+  get("/product/brand-page-list", params).then(result => {
     brandPageList.value = result.data.resultList;
     params.totalNum = result.data.totalNum;
   });
@@ -117,7 +117,7 @@ const openBrandUpdate = (brand) => {
 
 // 删除品牌
 const deleteBrand = (brandId) => {
-  del(`/brand/brand-delete/${brandId}`, null, {title: "提示", message: "您确定删除该品牌吗？"}).then(result => {
+  del(`/product/brand-delete/${brandId}`, null, {title: "提示", message: "您确定删除该品牌吗？"}).then(result => {
     tip.success(result.message);
     // 重新查询
     getBrandPageList();

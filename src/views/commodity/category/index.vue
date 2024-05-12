@@ -43,7 +43,7 @@ const categoryData = ref();
 
 // 获取所有分类
 const getCategoryTree = () => {
-  get("/productCategory/product-category-tree").then(result => {
+  get("/product/type-tree").then(result => {
     categoryData.value = result.data;
     categoryTreeRef.value.setCheckedKeys([]); // 取消之前的选中的节点
     currNode.value = null; // 当前选中节点置为null
@@ -94,7 +94,7 @@ const openCategoryUpdate = () => {
 
 // 删除商品分类
 const deleteCategory = () => {
-  del(`/productCategory/type-delete/${currNode.value.typeId}`, null, {title: "提示", message: "您确定删除该分类及其子分类吗？"}).then(result => {
+  del(`/product/type-delete/${currNode.value.typeId}`, null, {title: "提示", message: "您确定删除该分类及其子分类吗？"}).then(result => {
     tip.success(result.message);
     getCategoryTree();
   });
